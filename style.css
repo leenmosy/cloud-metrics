@@ -4,31 +4,28 @@
     padding: 0;
 }
 
+html {
+    background-color: #0b0d12;
+    overflow-x: hidden;
+}
+
 body {
     position: relative;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
     color: #e6e6e6;
+    min-height: 100dvh;
     overflow-x: hidden;
-    min-height: 100vh;
-}
-
-body::before {
-    content: "";
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: radial-gradient(circle at top, #1b1f27, #0b0d12);
-    z-index: -1;
+    background: radial-gradient(circle at top, #1b1f27, #0b0d12) no-repeat fixed;
 }
 
 .wrapper {
-    min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
+    min-height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 20px;
+    padding-top: max(20px, env(safe-area-inset-top));
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
 }
 
 .card {
@@ -37,7 +34,8 @@ body::before {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
-    backdrop-filter: blur(6px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     max-width: 420px;
     width: 100%;
 }
@@ -45,6 +43,7 @@ body::before {
 h1 {
     margin-bottom: 35px;
     font-size: clamp(24px, 5vw, 32px);
+    font-weight: 600;
 }
 
 .loader {
@@ -66,20 +65,26 @@ h1 {
 .loader span:nth-child(2) { animation-delay: -0.16s; }
 
 @keyframes pulse {
-    0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
-    40% { transform: scale(1); opacity: 1; }
+    0%, 80%, 100% { 
+        transform: scale(0); 
+        opacity: 0.3; 
+    }
+    40% { 
+        transform: scale(1); 
+        opacity: 1; 
+    }
 }
 
 #status {
     font-size: clamp(12px, 3vw, 14px);
     color: #8faed6;
     letter-spacing: 0.5px;
+    font-weight: 400;
 }
 
-/* ===== MOBILE ===== */
 @media (max-width: 480px) {
     .card {
-        padding: 30px 15px;
+        padding: 30px 20px;
     }
 
     .loader span {
