@@ -5,12 +5,10 @@
 }
 
 html {
-    /* Закрашиваем системную подложку браузера */
     background-color: #0b0d12;
     overflow: hidden;
     height: 100%;
-    /* Отключаем растяжку в Safari */
-    overscroll-behavior: none;
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -21,12 +19,14 @@ body {
     height: 100%;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
     color: #e6e6e6;
-    background: radial-gradient(circle at top, #1b1f27, #0b0d12);
+    background: radial-gradient(circle at top, #1b1f27, #0b0d12) no-repeat;
+    background-size: cover;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     overscroll-behavior: none;
+    -webkit-overflow-scrolling: none;
 }
 
 .wrapper {
@@ -36,7 +36,6 @@ body {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    /* Учитываем безопасные зоны для вырезов в экранах */
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
 }
