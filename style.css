@@ -6,26 +6,34 @@
 
 html {
     height: 100%;
-    background: #0b0d12;
+    background-color: #0b0d12;
 }
 
 body {
+    position: relative;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
     color: #e6e6e6;
+    overflow-x: hidden;
     min-height: 100dvh;
     background: radial-gradient(circle at top, #1b1f27, #0b0d12) no-repeat fixed;
     line-height: 1.5;
-    overflow: hidden;
 }
 
-#app {
-    height: 100%;
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0;
+    background: radial-gradient(circle at top, #1b1f27, #0b0d12);
+    z-index: -1;
 }
 
 .wrapper {
     display: flex;
     flex-direction: column;
-    height: 100dvh;
+    min-height: 100dvh;
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
 }
