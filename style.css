@@ -10,6 +10,8 @@ body {
     color: #e6e6e6;
     overflow-x: hidden;
     min-height: 100vh;
+    background: radial-gradient(circle at top, #1b1f27, #0b0d12) no-repeat fixed;
+    line-height: 1.5;
 }
 
 body::before {
@@ -91,4 +93,5 @@ h1 {
         height: 10px;
     }
 }
+
 
