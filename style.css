@@ -4,70 +4,60 @@
     padding: 0;
 }
 
-html {
-    height: 100%;
-    background-color: #0b0d12;
+body {
+    position: relative;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    color: #e6e6e6;
+    overflow-x: hidden;
+    min-height: 100vh;
 }
 
-body {
-    margin: 0;
-    min-height: 100dvh;
-    font-family: system-ui, -apple-system, sans-serif;
-    color: #faf8ed;
-    background: radial-gradient(circle at top, #1b1f27, #0b0d12) no-repeat fixed;
-    line-height: 1.5;
-    overflow: hidden;
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at top, #1b1f27, #0b0d12);
+    z-index: -1;
 }
 
 .wrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: 100dvh;
+    min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
-}
-
-.main {
-    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
+    text-align: center;
+    padding: 40px 25px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    backdrop-filter: blur(6px);
+    max-width: 420px;
     width: 100%;
-    max-width: 400px;
-    padding: 32px 24px;
-    background: rgba(35, 32, 37, 0.6); 
-    border: 1px solid rgba(250, 248, 237, 0.1);
-    border-radius: 12px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
 }
 
 h1 {
-    font-size: 24px;
-    font-weight: 600;
-    text-align: center;
-    color: #faf8ed;
+    margin-bottom: 35px;
+    font-size: clamp(24px, 5vw, 32px);
 }
 
 .loader {
     display: flex;
-    gap: 12px;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 25px;
 }
 
 .loader span {
     width: 12px;
     height: 12px;
-    background-color: #ffd100;
+    background: #4aa3ff;
     border-radius: 50%;
     animation: pulse 1.4s infinite ease-in-out both;
 }
@@ -81,9 +71,18 @@ h1 {
 }
 
 #status {
-    font-size: 13px;
-    color: #939095;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
+    font-size: clamp(12px, 3vw, 14px);
+    color: #8faed6;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 480px) {
+    .card {
+        padding: 30px 15px;
+    }
+
+    .loader span {
+        width: 10px;
+        height: 10px;
+    }
 }
