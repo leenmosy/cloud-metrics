@@ -6,32 +6,23 @@
 
 html {
     background-color: #0b0d12;
-    overflow: hidden;
     height: 100%;
-    -webkit-text-size-adjust: 100%;
 }
 
 body {
-    position: fixed;
-    top: 0;
-    left: 0;
+    margin: 0;
     width: 100%;
-    height: 100%;
+    min-height: 100dvh;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
     color: #e6e6e6;
-    background: radial-gradient(circle at top, #1b1f27, #0b0d12) no-repeat;
-    background-size: cover;
-    overflow: hidden;
+    background: radial-gradient(circle at top, #1b1f27, #0b0d12);
+    background-attachment: fixed;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    overscroll-behavior: none;
-    -webkit-overflow-scrolling: none;
+    flex-direction: column;
 }
 
 .wrapper {
-    width: 100%;
-    height: 100%;
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
