@@ -9,7 +9,7 @@ body {
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
     color: #e6e6e6;
     overflow-x: hidden;
-    min-height: 100dvh; 
+    min-height: 100dvh;
     background: radial-gradient(circle at top, #1b1f27, #0b0d12) no-repeat fixed;
     line-height: 1.5;
 }
@@ -17,7 +17,10 @@ body {
 body::before {
     content: "";
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0;
     background: radial-gradient(circle at top, #1b1f27, #0b0d12);
     z-index: -1;
 }
@@ -44,8 +47,8 @@ body::before {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     max-width: 420px;
     width: 100%;
 }
