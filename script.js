@@ -12,9 +12,7 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 const statsRef = db.ref('mosych_stats');
 const packetRef = db.ref('last_packet');
-
 let stats = { totalGB: 0, tunnels: 0, currentSpeed: 0 };
-
 statsRef.on('value', (snapshot) => {
     const data = snapshot.val();
     if (data) {
@@ -33,7 +31,6 @@ function renderUI() {
     const speedEl = document.getElementById('current-speed');
     const tunnelsEl = document.getElementById('tunnels');
     const timeEl = document.getElementById('local-time');
-
     if (totalEl) {
         const val = Number(stats.totalGB) || 0;
         totalEl.innerText = val >= 1024 ? (val / 1024).toFixed(4) + " TB" : val.toFixed(2) + " GB";
@@ -50,7 +47,6 @@ function renderUI() {
 function drawRow(packet) {
     const body = document.getElementById('traffic-body');
     if (!body) return;
-
     const row = document.createElement('tr');
     row.innerHTML = `
         <td class="p-4 border-r-2 border-black td-ip font-black">${packet.ip}</td>
