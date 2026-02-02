@@ -14,7 +14,7 @@
             <div class="h-1.5 w-full loader-track relative overflow-hidden">
                 <div id="loader-bar" class="loader-fill h-full w-0 transition-all duration-300"></div>
             </div>
-            <p class="loader-text text-[10px] uppercase mt-4 tracking-widest text-center animate-pulse">Establishing connection...</p>
+            <p class="loader-text text-[10px] uppercase mt-4 tracking-widest text-center animate-pulse">Connection...</p>
         </div>
     </div>
 
@@ -58,10 +58,10 @@
                 <table class="w-full text-left">
                     <thead class="table-sub-header font-black uppercase text-sm">
                         <tr>
-                            <th class="p-4 border-r-2 border-black">IP</th>
-                            <th class="p-4 border-r-2 border-black">Protocol</th>
-                            <th class="p-4 border-r-2 border-black">Payload ID</th>
-                            <th class="p-4">Enc Status</th>
+                            <th class="p-4 border-r-2 border-black col-ip">IP</th>
+                            <th class="p-4 border-r-2 border-black col-proto">Protocol</th>
+                            <th class="p-4 border-r-2 border-black col-payload">Payload ID</th>
+                            <th class="p-4 border-r-2 border-black col-status">Enc Status</th>
                         </tr>
                     </thead>
                     <tbody id="traffic-body" class="text-sm font-bold"></tbody>
