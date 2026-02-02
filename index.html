@@ -1,31 +1,49 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Mosych</title>
+    <title>Mosych Cloud</title>
+
     <link rel="icon" type="image/png" href="img/favicon.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="app">
-        <div class="wrapper">
-            <main class="main">
-                <div class="card">
-                    <h1>Site Under Construction</h1>
-                    <div class="loader">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                    <div id="status">Initializing...</div>
+<div id="app">
+    <div class="wrapper">
+        <main class="main">
+            <div class="card">
+
+                <h1>Mosych Cloud</h1>
+
+                <div class="loader">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
-            </main>
-        </div>
+
+                <div class="traffic">
+                    <div class="traffic-row">
+                        <span>Inbound</span>
+                        <strong id="inbound">0.00 GB</strong>
+                    </div>
+                    <div class="traffic-row">
+                        <span>Outbound</span>
+                        <strong id="outbound">0.00 GB</strong>
+                    </div>
+                </div>
+
+                <div class="progress">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+
+                <div id="status">Initializing storage node…</div>
+
+            </div>
+        </main>
     </div>
+</div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
-
