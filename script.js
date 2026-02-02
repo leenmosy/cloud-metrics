@@ -31,4 +31,5 @@ setInterval(() => {
     if (progress >= 100) progress = 0;
     progressBar.style.width = progress + "%";
 
-}, 2600);
+}, 2650);
+
