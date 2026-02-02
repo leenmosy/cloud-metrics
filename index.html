@@ -5,59 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mosych Cloud | Status</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" type="image/png" href="img/favicon.png">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="font-mono p-4 md:p-10">
+<body class="font-mono p-4 md:p-10 main-bg">
 
-    <div id="terminal-loader" class="fixed inset-0 z-50 bg-black flex items-center justify-center p-6 transition-opacity duration-700">
+    <div id="terminal-loader" class="fixed inset-0 z-50 loader-bg flex flex-col items-center justify-center p-6 transition-opacity duration-700">
         <div class="w-48 md:w-64">
-            <div class="h-1.5 w-full bg-gray-900 border border-[#ffee00]/20 relative overflow-hidden">
-                <div id="loader-bar" class="bg-[#ffee00] h-full w-0 transition-all duration-300 shadow-[0_0_15px_#ffee00]"></div>
+            <div class="h-1.5 w-full loader-track relative overflow-hidden">
+                <div id="loader-bar" class="loader-fill h-full w-0 transition-all duration-300"></div>
             </div>
+            <p class="loader-text text-[10px] uppercase mt-4 tracking-widest text-center animate-pulse">Establishing connection...</p>
         </div>
     </div>
 
     <div id="app-container" class="max-w-7xl mx-auto">
-        
-        <header id="h-main" class="neo-brutal header-custom p-6 mb-10 flex flex-col md:flex-row justify-between items-center gap-4 opacity-0 translate-y-10 transition-all duration-700">
-            <h1 class="text-5xl md:text-7xl font-black uppercase italic tracking-tighter">Mosych Cloud</h1>
-            <p class="font-bold uppercase text-sm">Frankfurt Data Center</p>
+        <header id="h-main" class="neo-brutal header-block p-6 mb-10 flex flex-col md:flex-row justify-between items-center gap-4 opacity-0 translate-y-10 transition-all duration-700">
+            <div>
+                <h1 class="header-title text-5xl md:text-7xl font-black uppercase italic tracking-tighter">Mosych Cloud</h1>
+                <p class="header-subtitle font-bold uppercase text-xs">Frankfurt Data Center | <span id="local-time">00:00:00</span></p>
+            </div>
+            <div class="hidden md:block">
+                <p class="status-badge font-black uppercase text-[10px] px-2 py-1">Node: FRA-01 // Stable</p>
+            </div>
         </header>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
             <div class="neo-brutal card-1 p-6 reveal opacity-0 translate-y-10 transition-all duration-700">
-                <p class="label font-black uppercase text-xs mb-2">Total Data Processed</p>
-                <p id="total-data" class="value text-4xl md:text-5xl font-black">0.00 TB</p>
-                <p class="status text-xs font-bold mt-2">● Storage cluster: Optimal</p>
+                <p class="card-1-label font-black uppercase text-xs mb-2">Total Data Processed</p>
+                <p id="total-data" class="card-1-value text-4xl md:text-5xl font-black">0.00 TB</p>
+                <p class="card-1-sub text-xs font-bold mt-2">● Storage cluster: Optimal</p>
             </div>
-
             <div class="neo-brutal card-2 p-6 reveal opacity-0 translate-y-10 transition-all duration-700">
-                <p class="font-black uppercase text-xs mb-2">Current Throughput</p>
-                <p id="current-speed" class="text-4xl md:text-5xl font-black">0.00 Gbps</p>
-                <p id="uplink-val" class="sub text-xs font-bold mt-2">↑ Uplink: 98% capacity</p>
+                <p class="card-2-label font-black uppercase text-xs mb-2">Current Throughput</p>
+                <p id="current-speed" class="card-2-value text-4xl md:text-5xl font-black">0.00 Gbps</p>
+                <p id="uplink-val" class="card-2-sub text-xs font-bold mt-2">↑ Uplink: 98.2% capacity</p>
             </div>
-
             <div class="neo-brutal card-3 p-6 reveal opacity-0 translate-y-10 transition-all duration-700">
-                <p class="font-black uppercase text-xs mb-2">Active Encrypted Tunnels</p>
-                <p id="tunnels" class="text-4xl md:text-5xl font-black">0</p>
-                <p class="status text-xs font-bold mt-2">● All systems nominal</p>
+                <p class="card-3-label font-black uppercase text-xs mb-2">Active Encrypted Tunnels</p>
+                <p id="tunnels" class="card-3-value text-4xl md:text-5xl font-black">0</p>
+                <p class="card-3-sub text-xs font-bold mt-2">● All systems nominal</p>
             </div>
         </div>
 
-        <div id="t-main" class="neo-brutal table-custom overflow-hidden opacity-0 translate-y-10 transition-all duration-700">
-            <div class="bg-black text-white p-3 font-bold flex justify-between items-center">
-                <span class="tracking-widest underline">REAL-TIME INGRESS TRAFFIC</span>
-                <span class="flex items-center gap-2">
-                    <span class="streaming-dot"></span>
-                    LIVE FEED
+        <div id="t-main" class="neo-brutal table-block overflow-hidden opacity-0 translate-y-10 transition-all duration-700">
+            <div class="table-header-bg text-white p-3 font-bold flex justify-between items-center">
+                <span class="table-title tracking-widest underline">REAL-TIME INGRESS TRAFFIC</span>
+                <span class="flex items-center gap-2 text-xs">
+                    <span class="streaming-dot"></span> LIVE FEED
                 </span>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left">
-                    <thead class="border-b-4 border-black font-black uppercase text-sm">
+                    <thead class="table-sub-header font-black uppercase text-sm">
                         <tr>
-                            <th class="p-4 border-r-2 border-black">Origin IP</th>
+                            <th class="p-4 border-r-2 border-black">IP</th>
                             <th class="p-4 border-r-2 border-black">Protocol</th>
                             <th class="p-4 border-r-2 border-black">Payload ID</th>
                             <th class="p-4">Enc Status</th>
@@ -67,13 +68,8 @@
                 </table>
             </div>
         </div>
-
-        <footer class="mt-10 text-center font-bold text-gray-400 uppercase text-xs tracking-widest">
-            Mosych Cloud Systems &copy; 2026
-        </footer>
     </div>
-
+    <audio id="boot-sound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
     <script src="script.js"></script>
 </body>
-
 </html>
