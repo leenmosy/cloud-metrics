@@ -1,49 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Mosych</title>
-
-    <link rel="icon" type="image/png" href="img/favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mosych Cloud | Status</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-<div id="app">
-    <div class="wrapper">
-        <main class="main">
-            <div class="card">
+<body class="font-mono p-4 md:p-10">
 
-                <h1>Mosych Cloud</h1>
-
-                <div class="loader">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-
-                <div class="traffic">
-                    <div class="traffic-row">
-                        <span>Inbound</span>
-                        <strong id="inbound">0.00 GB</strong>
-                    </div>
-                    <div class="traffic-row">
-                        <span>Outbound</span>
-                        <strong id="outbound">0.00 GB</strong>
-                    </div>
-                </div>
-
-                <div class="progress">
-                    <div class="progress-bar" id="progressBar"></div>
-                </div>
-
-                <div id="status">Initializing storage node…</div>
-
+    <div id="terminal-loader" class="fixed inset-0 z-50 bg-black flex items-center justify-center p-6 transition-opacity duration-700">
+        <div class="w-48 md:w-64">
+            <div class="h-1.5 w-full bg-gray-900 border border-[#ffee00]/20 relative overflow-hidden">
+                <div id="loader-bar" class="bg-[#ffee00] h-full w-0 transition-all duration-300 shadow-[0_0_15px_#ffee00]"></div>
             </div>
-        </main>
+        </div>
     </div>
-</div>
 
-<script src="script.js"></script>
+    <div id="app-container" class="max-w-7xl mx-auto">
+        
+        <header id="h-main" class="neo-brutal header-custom p-6 mb-10 flex flex-col md:flex-row justify-between items-center gap-4 opacity-0 translate-y-10 transition-all duration-700">
+            <h1 class="text-5xl md:text-7xl font-black uppercase italic tracking-tighter">Mosych Cloud</h1>
+            <p class="font-bold uppercase text-sm">Frankfurt Data Center</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+            <div class="neo-brutal card-1 p-6 reveal opacity-0 translate-y-10 transition-all duration-700">
+                <p class="label font-black uppercase text-xs mb-2">Total Data Processed</p>
+                <p id="total-data" class="value text-4xl md:text-5xl font-black">0.00 TB</p>
+                <p class="status text-xs font-bold mt-2">● Storage cluster: Optimal</p>
+            </div>
+
+            <div class="neo-brutal card-2 p-6 reveal opacity-0 translate-y-10 transition-all duration-700">
+                <p class="font-black uppercase text-xs mb-2">Current Throughput</p>
+                <p id="current-speed" class="text-4xl md:text-5xl font-black">0.00 Gbps</p>
+                <p id="uplink-val" class="sub text-xs font-bold mt-2">↑ Uplink: 98% capacity</p>
+            </div>
+
+            <div class="neo-brutal card-3 p-6 reveal opacity-0 translate-y-10 transition-all duration-700">
+                <p class="font-black uppercase text-xs mb-2">Active Encrypted Tunnels</p>
+                <p id="tunnels" class="text-4xl md:text-5xl font-black">0</p>
+                <p class="status text-xs font-bold mt-2">● All systems nominal</p>
+            </div>
+        </div>
+
+        <div id="t-main" class="neo-brutal table-custom overflow-hidden opacity-0 translate-y-10 transition-all duration-700">
+            <div class="bg-black text-white p-3 font-bold flex justify-between items-center">
+                <span class="tracking-widest underline">REAL-TIME INGRESS TRAFFIC</span>
+                <span class="flex items-center gap-2">
+                    <span class="streaming-dot"></span>
+                    LIVE FEED
+                </span>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead class="border-b-4 border-black font-black uppercase text-sm">
+                        <tr>
+                            <th class="p-4 border-r-2 border-black">Origin IP</th>
+                            <th class="p-4 border-r-2 border-black">Protocol</th>
+                            <th class="p-4 border-r-2 border-black">Payload ID</th>
+                            <th class="p-4">Enc Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="traffic-body" class="text-sm font-bold"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <footer class="mt-10 text-center font-bold text-gray-400 uppercase text-xs tracking-widest">
+            Mosych Cloud Systems &copy; 2026
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
