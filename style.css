@@ -1,71 +1,72 @@
 :root {
-    --page-bg: #f0f0f0;
-    --border-color: #000000;
-    --shadow-color: rgba(0,0,0,1);
+    --main-bg: #f0f0f0;
+    --border-global: #000000;
 
     --header-bg: #ffee00;
     --header-text: #000000;
+    --status-badge-bg: #ffffff;
 
     --card1-bg: #fffbd2;
+    --card1-text: #000000;
     --card1-label: #000000;
-    --card1-value: #000000;
-    --card1-status: #969696;
+    --card1-sub: #484848;
 
     --card2-bg: #fffbd2;
     --card2-text: #000000;
-    --card2-sub: #969696;
+    --card2-label: #000000;
+    --card2-sub: #484848;
 
     --card3-bg: #fffbd2;
     --card3-text: #000000;
-    --card3-status: #969696;
+    --card3-label: #000000;
+    --card3-sub: #484848;
 
     --table-bg: #ffffff;
-    --table-header-bg: #f3f4f6;
-    --table-header-text: #000000;
+    --table-head-bg: #000000;
+    --table-subhead-bg: #f9fafb;
+
+    --color-ip: #000000;
+    --color-protocol: #000000;
+    --color-payload: #000000;
+    --color-status: #10b981;
+
+    --loader-bg: #000000;
+    --loader-accent: #ffee00;
 }
 
-body { background-color: var(--page-bg); overflow-x: hidden; }
+.main-bg { background-color: var(--main-bg); }
+.neo-brutal { border: 4px solid var(--border-global); box-shadow: 8px 8px 0px 0px var(--border-global); }
 
-.neo-brutal {
-    border: 4px solid var(--border-color);
-    box-shadow: 8px 8px 0px 0px var(--shadow-color);
-}
+.header-block { background-color: var(--header-bg); color: var(--header-text); }
+.status-badge { background-color: var(--status-badge-bg); border: 2px solid var(--border-global); }
 
-.header-custom { background-color: var(--header-bg); color: var(--header-text); }
-
-.card-1 { background-color: var(--card1-bg); }
-.card-1 .label { color: var(--card1-label); }
-.card-1 .value { color: var(--card1-value); }
-.card-1 .status { color: var(--card1-status); }
-
+.card-1 { background-color: var(--card1-bg); color: var(--card1-text); }
 .card-2 { background-color: var(--card2-bg); color: var(--card2-text); }
-.card-2 .sub { color: var(--card2-sub); }
-
 .card-3 { background-color: var(--card3-bg); color: var(--card3-text); }
-.card-3 .status { color: var(--card3-status); }
 
-.table-custom { background-color: var(--table-bg); }
-.table-custom thead { background-color: var(--table-header-bg); color: var(--table-header-text); }
+table { table-layout: fixed; width: 100%; border-collapse: collapse; }
+.table-block { background-color: var(--table-bg); }
+.table-header-bg { background-color: var(--table-head-bg); }
+.table-sub-header { background-color: var(--table-subhead-bg); border-bottom: 4px solid var(--border-global); }
 
-.show {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-}
+.col-ip { width: 25%; }
+.col-proto { width: 25%; }
+.col-payload { width: 30%; }
+.col-status { width: 20%; }
 
-.streaming-dot {
-    width: 12px; height: 12px;
-    background: #bdff42;
-    border-radius: 50%;
-    border: 2px solid white;
-    animation: pulse 1s infinite;
-}
+.td-ip { color: var(--color-ip); }
+.td-protocol { color: var(--color-protocol); }
+.td-payload { color: var(--color-payload); }
+.td-status { color: var(--color-status); }
 
-@keyframes pulse {
-    0% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.2); opacity: 0.7; }
-    100% { transform: scale(1); opacity: 1; }
-}
+.loader-bg { background-color: var(--loader-bg); }
+.loader-track { background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,0,0.2); }
+.loader-fill { background-color: var(--loader-accent); box-shadow: 0 0 15px var(--loader-accent); }
+.loader-text { color: var(--loader-accent); }
 
-::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { background: #eee; border-left: 2px solid black; }
-::-webkit-scrollbar-thumb { background: black; }
+.show { opacity: 1 !important; transform: translateY(0) !important; }
+.streaming-dot { width: 10px; height: 10px; background-color: #bdff42; border-radius: 50%; animation: pulse 1s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } }
+
+#traffic-body tr { border-bottom: 2px solid var(--border-global); animation: slideIn 0.3s ease-out; }
+@keyframes slideIn { from { opacity: 0; transform: translateX(-15px); } to { opacity: 1; transform: translateX(0); } }
