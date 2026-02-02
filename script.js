@@ -1,35 +1,52 @@
-const statusMessages = [
-    "Initializing storage node…",
-    "Establishing encrypted channels…",
-    "Syncing distributed volumes…",
-    "Uploading backups…",
-    "Processing file chunks…",
-    "Verifying data integrity…"
+const messages = [
+    "Initializing…",
+    "Loading resources…",
+    "Setting up interface…",
+    "Almost ready…"
 ];
 
 const statusEl = document.getElementById("status");
+
+let index = 0;
+setInterval(() => {
+    index = (index + 1) % messages.length;
+    statusEl.textContent = messages[index];
+}, 2700);
+
 const inboundEl = document.getElementById("inbound");
 const outboundEl = document.getElementById("outbound");
 const progressBar = document.getElementById("progressBar");
+const activityEl = document.getElementById("activity");
 
-let statusIndex = 0;
-let inbound = 120.35;
-let outbound = 87.62;
-let progress = 0;
+let inbound = parseFloat(localStorage.getItem("inbound")) || 128.42;
+let outbound = parseFloat(localStorage.getItem("outbound")) || 64.17;
+let progress = Math.random() * 100;
 
-setInterval(() => {
-    statusIndex = (statusIndex + 1) % statusMessages.length;
-    statusEl.textContent = statusMessages[statusIndex];
+const activities = [
+    "Syncing files…",
+    "Uploading backups…",
+    "Downloading media…",
+    "Processing chunks…",
+    "Verifying integrity…"
+];
 
-    inbound += Math.random() * 2.4;
-    outbound += Math.random() * 1.6;
+function tick() {
+    inbound += Math.random() * 2.2;
+    outbound += Math.random() * 1.4;
 
     inboundEl.textContent = inbound.toFixed(2) + " GB";
     outboundEl.textContent = outbound.toFixed(2) + " GB";
 
-    progress += Math.random() * 18;
+    localStorage.setItem("inbound", inbound);
+    localStorage.setItem("outbound", outbound);
+
+    progress += Math.random() * 14;
     if (progress >= 100) progress = 0;
     progressBar.style.width = progress + "%";
 
-}, 2650);
+    activityEl.textContent =
+        activities[Math.floor(Math.random() * activities.length)];
+}
 
+tick();
+setInterval(tick, 1200);
