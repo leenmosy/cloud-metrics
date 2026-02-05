@@ -71,9 +71,9 @@ th:last-child, td:last-child {
 .table-sub-header th { border-bottom: 4px solid var(--border-global); }
 
 .col-ip { width: 25%; }
-.col-proto { width: 20%; }
-.col-payload { width: 35%; }
-.col-status { width: 20%; }
+.col-proto { width: 25%; }
+.col-payload { width: 25%; }
+.col-status { width: 25%; }
 
 .td-ip { color: var(--color-ip); font-weight: 900; }
 .td-protocol { color: var(--color-protocol); font-size: 0.75rem; }
@@ -97,3 +97,4 @@ th:last-child, td:last-child {
     .table-block { font-size: 13px; }
     th, td { padding: 0.75rem 0.5rem !important; }
 }
+
