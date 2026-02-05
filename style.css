@@ -75,9 +75,9 @@ th:last-child, td:last-child {
 .col-payload { width: 25%; }
 .col-status { width: 25%; }
 
-.td-ip { color: var(--color-ip); font-weight: 900; }
-.td-protocol { color: var(--color-protocol); font-size: 0.75rem; }
-.td-payload { color: var(--color-payload); font-size: 0.75rem; opacity: 0.7; }
+.td-ip { color: var(--color-ip); }
+.td-protocol { color: var(--color-protocol); }
+.td-payload { color: var(--color-payload); }
 .td-status { color: var(--color-status); }
 
 .loader-bg { background-color: var(--loader-bg); }
@@ -97,4 +97,5 @@ th:last-child, td:last-child {
     .table-block { font-size: 13px; }
     th, td { padding: 0.75rem 0.5rem !important; }
 }
+
 
