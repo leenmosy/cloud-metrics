@@ -27,6 +27,10 @@
     --loader-accent: #fffc5b;
 }
 
+html {
+    font-size: 110%; 
+}
+
 ::selection {
     background: #000000;
     color: #ffffff;
@@ -114,6 +118,7 @@ th:last-child, td:last-child {
     .table-block { font-size: 13px; }
     th, td { padding: 0.75rem 0.5rem !important; }
 }
+
 
 
 
