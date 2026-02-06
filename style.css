@@ -32,6 +32,13 @@
     color: #ffffff;
 }
 
+.table-header-bg ::selection, 
+.loader-bg ::selection,
+th ::selection {
+    background: var(--header-bg);
+    color: #000000;
+}
+
 .main-bg { background-color: var(--main-bg); }
 .neo-brutal { border: 4px solid var(--border-global); box-shadow: 8px 8px 0px 0px var(--border-global); }
 
@@ -102,6 +109,7 @@ th:last-child, td:last-child {
     .table-block { font-size: 13px; }
     th, td { padding: 0.75rem 0.5rem !important; }
 }
+
 
 
 
