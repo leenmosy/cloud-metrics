@@ -120,11 +120,13 @@ section {
     opacity: 0;
     transform: translateY(-30px);
     animation: appleReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
+    cursor: default;
 }
 
 .hero-title-text {
     color: #3B525E;
     text-transform: uppercase;
+    cursor: default;
 }
 
 .hero-subtitle {
@@ -135,6 +137,7 @@ section {
     opacity: 0;
     transform: translateY(-30px);
     animation: appleReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;
+    cursor: default;
 }
 
 .hero-subtitle-right {
@@ -175,6 +178,80 @@ section {
                 transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
     transform: translateY(-30px);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 3px;
+    background: rgba(59, 82, 94, 0.1);
+    border-radius: 1.5px;
+    margin-top: 6px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3B525E, #708693);
+    border-radius: 1.5px;
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.chart-section {
+    padding: 60px 72px;
+    background-image: url('img/background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-container {
+    width: 100%;
+    max-width: 1200px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(59, 82, 94, 0.1);
+    border: 1px solid rgba(59, 82, 94, 0.1);
+}
+
+.chart-title {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    color: #3B525E;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#throughputChart {
+    width: 100% !important;
+    height: 400px !important;
 }
 
 .hero-right .metric-card:nth-child(1) {
@@ -202,12 +279,14 @@ section {
     color: #708693;
     text-transform: lowercase;
     margin-bottom: -12px;
+    cursor: default;
 }
 
 .hero-right .metric-sub {
     font-size: clamp(0.84rem, calc(1.08vw + 0.84rem), 1.5rem);
     color: #879DA8;
     text-transform: lowercase;
+    cursor: default;
 }
 
 .loading-screen {
@@ -342,6 +421,18 @@ section {
     .hero-right .metric-card {
         padding: clamp(12px, 1.8vw, 14.4px) clamp(18px, 2.4vw, 21.6px);
         margin-bottom: clamp(18px, 2.4vw, 24px);
+    }
+    
+    .chart-section {
+        padding: clamp(40px, 3.6vw, 50px);
+    }
+    
+    .chart-container {
+        padding: clamp(30px, 2.4vw, 40px);
+    }
+    
+    #throughputChart {
+        height: clamp(300px, 20vw, 400px) !important;
     }
 }
 
@@ -535,6 +626,24 @@ section {
     
     .hero-right .metric-sub {
         font-size: clamp(0.6rem, 1.44vw, 0.96rem);
+    }
+    
+    .chart-section {
+        padding: clamp(30px, 4.8vw, 40px) clamp(20px, 3.6vw, 30px);
+    }
+    
+    .chart-container {
+        padding: clamp(20px, 3.6vw, 30px);
+        border-radius: 10px;
+    }
+    
+    .chart-title {
+        font-size: clamp(1.2rem, 3vw, 1.5rem);
+        margin-bottom: clamp(20px, 3vw, 25px);
+    }
+    
+    #throughputChart {
+        height: clamp(250px, 30vw, 350px) !important;
     }
     
     .loading-text {
