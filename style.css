@@ -528,46 +528,6 @@ body.dark-theme .status-encrypted {
     color: #4ade80 !important;
 }
 
-.nav-menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0) 100%);
-    backdrop-filter: blur(10px);
-    padding: 20px 0 40px 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80px;
-}
-
-.nav-links {
-    display: flex;
-    gap: 20px;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    justify-content: center;
-    max-width: 400px;
-    margin: 0 auto;
-}
-
-.nav-links a {
-    color: #666;
-    text-decoration: none;
-    transition: color 0.3s ease;
-    padding: 4px 8px;
-    border-radius: 4px;
-}
-
-.nav-links a:hover {
-    color: #000;
-    background: rgba(0, 0, 0, 0.05);
-}
-
 .menu-toggle {
     display: none;
 }
