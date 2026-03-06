@@ -103,19 +103,28 @@
             <div class="hero-right">
                 <div class="metrics-grid" role="region" aria-label="Performance metrics">
                     <div class="metric-card">
-                        <div id="tunnels" class="metric-value" aria-label="Active encrypted tunnels">0</div>
-                        <div class="metric-label">Active Encrypted Tunnels</div>
+                        <div id="tunnels" class="metric-value animated-counter" aria-label="Active encrypted tunnels">0</div>
+                        <div class="metric-label">Active Tunnels</div>
                         <div class="metric-sub" aria-label="System status">All systems nominal</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="tunnels-progress" style="width: 0%"></div>
+                        </div>
                     </div>
                     <div class="metric-card">
-                        <div id="total-data" class="metric-value" aria-label="Total data processed">0.00 TB</div>
+                        <div id="total-data" class="metric-value animated-counter" aria-label="Total data processed">0.00 TB</div>
                         <div class="metric-label">Total Data Processed</div>
                         <div class="metric-sub" aria-label="Storage cluster status">Storage cluster: Optimal</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="data-progress" style="width: 0%"></div>
+                        </div>
                     </div>
                     <div class="metric-card">
-                        <div id="current-speed" class="metric-value" aria-label="Current throughput">0.00 Gbps</div>
+                        <div id="current-speed" class="metric-value animated-counter" aria-label="Current throughput">0.00 Gbps</div>
                         <div class="metric-label">Current Throughput</div>
                         <div id="uplink-val" class="metric-sub" aria-label="Uplink capacity usage">Uplink: 98.2% capacity</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="speed-progress" style="width: 0%"></div>
+                        </div>
                     </div>
                 </div>
             </div>
