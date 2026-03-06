@@ -52,7 +52,7 @@ function renderUI() {
         const speed = Number(stats.currentSpeed) || 0;
         let capacityPercent = (speed / 5) * 100;
         if (capacityPercent > 99.9) capacityPercent = 99.9;
-        uplinkEl.innerText = `↑ Uplink: ${capacityPercent.toFixed(1)}% capacity`;
+        uplinkEl.innerText = `Uplink: ${capacityPercent.toFixed(1)}% capacity`;
     }
 }
 
@@ -183,3 +183,4 @@ function startApp() {
 }
 
 window.onload = runLoader;
+
