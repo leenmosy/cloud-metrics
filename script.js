@@ -102,7 +102,6 @@ function initializeFirebase() {
     });
 }
 
-// Обновление UI
 function renderUI() {
     const totalEl = document.getElementById('total-data');
     const speedEl = document.getElementById('current-speed');
@@ -131,7 +130,6 @@ function renderUI() {
     }
 }
 
-// Обновление часов
 function updateClock() {
     const timeEl = document.getElementById('local-time');
     if (timeEl) {
@@ -144,7 +142,6 @@ function updateClock() {
     }
 }
 
-// Добавление строки в таблицу
 function drawRow(packet) {
     const body = document.getElementById('traffic-body');
     if (!body || !packet) return;
@@ -157,20 +154,17 @@ function drawRow(packet) {
         <td class="status-encrypted">ENCRYPTED</td>
     `;
     
-    // Добавляем строку с анимацией
     row.style.opacity = '0';
     row.style.transform = 'translateY(-20px)';
     row.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     
     body.prepend(row);
     
-    // Запускаем анимацию появления
     setTimeout(() => {
         row.style.opacity = '1';
         row.style.transform = 'translateY(0)';
     }, 50);
     
-    // Удаляем лишние строки
     if (body.rows.length > 12) {
         const lastRow = body.rows[body.rows.length - 1];
         lastRow.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
@@ -183,7 +177,6 @@ function drawRow(packet) {
     }
 }
 
-// Лоадер
 async function runLoader() {
     const loadingScreen = document.getElementById('loading-screen');
     const progressBar = document.getElementById('loading-progress');
@@ -192,10 +185,8 @@ async function runLoader() {
     if (progressBar && loadingText) {
         const statusTexts = ['Initializing', 'Loading resources', 'Connecting', 'Loading data', 'Almost ready'];
         
-        // Инициализируем Firebase во время загрузки
         const firebasePromise = initializeFirebase();
         
-        // Анимация прогресса
         for (let i = 0; i <= 100; i += 5) {
             progressBar.style.width = i + '%';
             
@@ -205,7 +196,6 @@ async function runLoader() {
             await new Promise(r => setTimeout(r, 30));
         }
         
-        // Ждем загрузки данных из Firebase
         await firebasePromise;
     }
     
@@ -218,65 +208,44 @@ async function runLoader() {
     }
 }
 
-// Запуск приложения
 function startApp() {
     updateClock();
     setInterval(updateClock, 1000);
-    
-    // Firebase уже инициализирован в лоадере
-    
-    // Анимации при скролле
     setupScrollAnimations();
-    
-    // Плавная прокрутка для навигации
     setupSmoothScroll();
-    
-    // Настройка плавного скролла как у Apple
     setupSmoothScrolling();
-    
-    // Настройка переключения темы
     setupThemeToggle();
 }
 
-// Переключение темы
 function setupThemeToggle() {
     const themeToggle = document.getElementById('theme-toggle');
     
-    // Устанавливаем правильный текст кнопки на основе текущей темы
     const isCurrentlyDark = document.body.classList.contains('dark-theme');
     themeToggle.textContent = isCurrentlyDark ? 'LIGHT' : 'DARK';
     
     themeToggle.addEventListener('click', () => {
         const isDark = document.body.classList.toggle('dark-theme');
         
-        // Обновляем текст кнопки
         themeToggle.textContent = isDark ? 'LIGHT' : 'DARK';
         
-        // Сохраняем тему
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
     });
 }
 
-// Анимации при скролле
 function setupScrollAnimations() {
-    // Наблюдаем за всеми секциями
     const sections = document.querySelectorAll('section');
     
     sections.forEach((section, index) => {
-        // Начальное состояние - скрыты
         section.style.opacity = '0';
         section.style.transform = 'translateY(50px)';
         
-        // Создаем Intersection Observer для каждой секции
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Плавное появление
                     entry.target.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
                 } else {
-                    // Если секция уходит вверх - плавно исчезает
                     const rect = entry.target.getBoundingClientRect();
                     if (rect.bottom < 0) {
                         entry.target.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
@@ -293,7 +262,6 @@ function setupScrollAnimations() {
         observer.observe(section);
     });
     
-    // Добавляем плавную анимацию для метрик
     const metricCards = document.querySelectorAll('.metric-card');
     metricCards.forEach((card, index) => {
         card.style.opacity = '0';
@@ -306,7 +274,7 @@ function setupScrollAnimations() {
                         entry.target.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                         entry.target.style.opacity = '1';
                         entry.target.style.transform = 'translateY(0)';
-                    }, index * 100); // Постепенное появление
+                    }, index * 100);
                 }
             });
         }, {
@@ -317,7 +285,6 @@ function setupScrollAnimations() {
     });
 }
 
-// Плавная прокрутка
 function setupSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -333,25 +300,18 @@ function setupSmoothScroll() {
     });
 }
 
-// Плавный скролл как у Apple
 function setupSmoothScrolling() {
-    // Добавляем плавность для всего скролла
     document.documentElement.style.scrollBehavior = 'smooth';
     
-    // Улучшаем скролл для touch устройств
     if ('scrollBehavior' in document.documentElement.style) {
-        // Браузер поддерживает smooth scrolling
         document.body.style.scrollBehavior = 'smooth';
     }
     
-    // Добавляем инерцию для iOS/Mac
     document.body.style.webkitOverflowScrolling = 'touch';
     
-    // Оптимизируем производительность скролла
     let ticking = false;
     
     function updateScrollAnimation() {
-        // Здесь можно добавить дополнительные анимации при скролле
         ticking = false;
     }
     
@@ -363,5 +323,4 @@ function setupSmoothScrolling() {
     }, { passive: true });
 }
 
-// Запуск
 window.onload = runLoader;
