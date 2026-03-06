@@ -29,7 +29,7 @@ html {
 
 body {
     font-family: 'Coolvetica', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: #ffffff;
+    background: transparent;
     color: #3B525E;
     overflow-x: hidden;
     line-height: 1.6;
@@ -50,11 +50,8 @@ body {
 
 section {
     width: 100vw;
-    min-height: 100vh;
+    height: 100vh;
     position: relative;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     opacity: 1;
     transform: translateY(0) scale(1);
     z-index: 2;
@@ -67,16 +64,19 @@ section {
 
 .hero-section {
     background-image: url('img/background.png');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background-size: 100% 100%;
+    background-position: center center;
     background-repeat: no-repeat;
+    background-attachment: scroll;
     display: grid;
     grid-template-columns: 50% 50%;
     align-items: center;
     padding: 60px 160px;
     width: 100%;
-    height: 100vh;
+    min-height: 100dvh;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
 }
 
 .hero-left {
@@ -86,6 +86,8 @@ section {
     opacity: 0;
     transform: translateY(-30px);
     animation: appleReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+    position: relative;
+    z-index: 2;
 }
 
 .hero-content-left {
@@ -151,6 +153,8 @@ section {
     opacity: 0;
     transform: translateY(-30px);
     animation: appleReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+    position: relative;
+    z-index: 2;
 }
 
 .hero-right .metrics-grid {
@@ -211,10 +215,10 @@ section {
     width: 100%;
     height: 100%;
     background-image: url('img/background.png');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background-size: 100% 100%;
+    background-position: center center;
     background-repeat: no-repeat;
+    background-attachment: scroll;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -323,72 +327,204 @@ section {
     animation: fadeInOut 1.5s ease-in-out infinite;
 }
 
+@media (max-width: 1600px) {
+    .hero-section {
+        padding: 50px 120px;
+        gap: 35px;
+    }
+    
+    .hero-left, .hero-right {
+        padding: 50px;
+        min-height: 380px;
+    }
+    
+    .hero-title {
+        font-size: clamp(7rem, 10vw, 9rem);
+        margin-bottom: 15px;
+    }
+    
+    .hero-description {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+    
+    .hero-right .metric-value {
+        font-size: 5.5rem;
+    }
+}
+
 @media (max-width: 1400px) {
     .hero-section {
-        padding: 60px 120px;
+        padding: 45px 100px;
+        gap: 30px;
+    }
+    
+    .hero-left, .hero-right {
+        padding: 45px;
+        min-height: 350px;
+    }
+    
+    .hero-title {
+        font-size: clamp(6rem, 9vw, 8rem);
+        margin-bottom: 12px;
+    }
+    
+    .hero-description {
+        font-size: 20px;
+        margin-bottom: 18px;
+    }
+    
+    .hero-right .metric-value {
+        font-size: 5rem;
+    }
+    
+    .hero-right .metric-card {
+        padding: 12px 18px;
+        margin-bottom: 20px;
     }
 }
 
 @media (max-width: 1200px) {
     .hero-section {
         grid-template-columns: 1fr;
-        padding: 40px 80px;
-        gap: 60px;
+        padding: 4vw;
+        gap: 4vw;
+        background-attachment: scroll;
         min-height: auto;
-        background-position: center top;
+        height: auto;
+        flex-direction: column;
     }
     
     .hero-left, .hero-right {
-        padding: 20px;
+        max-width: 90%;
+        text-align: center;
+        padding: 30px;
+        min-height: auto;
         justify-content: center;
         text-align: center;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .hero-left {
+        order: 1;
+    }
+    
+    .hero-right {
+        order: 2;
+    }
+    
+    .hero-title {
+        font-size: clamp(4.5rem, 7vw, 6rem);
+        margin-bottom: 15px;
+    }
+    
+    .hero-description {
+        font-size: 18px;
+        margin-bottom: 25px;
+    }
+    
+    .hero-subtitle {
+        margin-top: 20px;
     }
     
     .hero-right .metrics-grid {
         margin: 0 auto;
-        max-width: 600px;
+        max-width: 500px;
+        gap: 15px;
+    }
+    
+    .hero-right .metric-value {
+        font-size: 4rem;
+        margin-bottom: -25px;
+    }
+    
+    .hero-right .metric-label {
+        font-size: 1.2rem;
+        margin-bottom: -10px;
+    }
+    
+    .hero-right .metric-card {
+        padding: 18px 25px;
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .hero-section {
+        padding: 35px 60px;
+        gap: 40px;
+    }
+    
+    .hero-left, .hero-right {
+        padding: 25px;
+    }
+    
+    .hero-title {
+        font-size: clamp(4rem, 6vw, 5rem);
+        margin-bottom: 12px;
+    }
+    
+    .hero-description {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+    
+    .hero-right .metric-value {
+        font-size: 3.5rem;
+        margin-bottom: -22px;
+    }
+    
+    .hero-right .metric-label {
+        font-size: 1.1rem;
+    }
+    
+    .hero-right .metric-card {
+        padding: 15px 20px;
     }
 }
 
 @media (max-width: 768px) {
     .loading-screen {
-        background-position: center top;
-        background-size: cover;
         background-attachment: scroll;
     }
     
     .hero-section {
-        background-image: url('img/background.png');
-        background-position: center top;
+        min-height: 100dvh;
         background-attachment: scroll;
-        background-size: cover;
-        min-height: 100vh;
         padding: 30px 40px;
-        gap: 40px;
+        gap: 35px;
+        height: auto;
     }
     
     .hero-left, .hero-right {
-        padding: 15px;
+        padding: 20px;
+        min-height: auto;
     }
     
     .hero-title {
-        font-size: clamp(4rem, 10vw, 6rem);
-        margin-bottom: 10px;
+        font-size: clamp(3.5rem, 8vw, 4.5rem);
+        margin-bottom: 15px;
     }
     
     .hero-description {
-        font-size: 14px;
+        font-size: 15px;
         line-height: 1.4;
         margin-bottom: 20px;
     }
     
     .hero-subtitle {
         font-size: 14px;
+        margin-top: 15px;
+    }
+    
+    .hero-right .metrics-grid {
+        gap: 12px;
     }
     
     .hero-right .metric-card {
-        margin-top: -15px;
-        padding: 15px 20px;
+        margin-bottom: 12px;
+        padding: 12px 18px;
     }
     
     .hero-right .metric-value {
@@ -397,39 +533,84 @@ section {
     }
     
     .hero-right .metric-label {
-        font-size: 1.1rem;
+        font-size: 1rem;
         margin-bottom: -8px;
     }
     
     .hero-right .metric-sub {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-section {
+        padding: 25px 30px;
+        gap: 30px;
+    }
+    
+    .hero-left, .hero-right {
+        padding: 15px;
+    }
+    
+    .hero-title {
+        font-size: clamp(3rem, 7vw, 4rem);
+        margin-bottom: 12px;
+    }
+    
+    .hero-description {
+        font-size: 14px;
+        margin-bottom: 18px;
+    }
+    
+    .hero-subtitle {
+        font-size: 13px;
+        margin-top: 12px;
+    }
+    
+    .hero-right .metrics-grid {
+        gap: 10px;
+    }
+    
+    .hero-right .metric-card {
+        padding: 10px 15px;
+        margin-bottom: 10px;
+    }
+    
+    .hero-right .metric-value {
+        font-size: 2.5rem;
+        margin-bottom: -18px;
+    }
+    
+    .hero-right .metric-label {
         font-size: 0.9rem;
+        margin-bottom: -6px;
+    }
+    
+    .hero-right .metric-sub {
+        font-size: 0.8rem;
     }
 }
 
 @media (max-width: 480px) {
     .loading-screen {
-        background-position: center top;
-        background-size: cover;
         background-attachment: scroll;
     }
     
     .hero-section {
-        background-image: url('img/background.png');
-        background-position: center top;
+        min-height: 100dvh;
         background-attachment: scroll;
-        background-size: cover;
-        min-height: 100vh;
         padding: 20px;
-        gap: 30px;
+        gap: 25px;
+        height: auto;
     }
     
     .hero-left, .hero-right {
-        padding: 10px;
+        padding: 12px;
     }
     
     .hero-title {
-        font-size: clamp(3rem, 12vw, 5rem);
-        margin-bottom: 15px;
+        font-size: clamp(2.5rem, 6vw, 3.5rem);
+        margin-bottom: 10px;
     }
     
     .hero-description {
@@ -440,25 +621,30 @@ section {
     
     .hero-subtitle {
         font-size: 12px;
+        margin-top: 10px;
     }
     
-    .hero-right .metric-value {
-        font-size: 2.5rem;
-        margin-bottom: -18px;
-    }
-    
-    .hero-right .metric-label {
-        font-size: 1rem;
-        margin-bottom: -6px;
-    }
-    
-    .hero-right .metric-sub {
-        font-size: 0.8rem;
+    .hero-right .metrics-grid {
+        gap: 8px;
     }
     
     .hero-right .metric-card {
-        margin-top: -10px;
-        padding: 12px 18px;
+        padding: 8px 12px;
+        margin-bottom: 8px;
+    }
+    
+    .hero-right .metric-value {
+        font-size: 2rem;
+        margin-bottom: -15px;
+    }
+    
+    .hero-right .metric-label {
+        font-size: 0.85rem;
+        margin-bottom: -5px;
+    }
+    
+    .hero-right .metric-sub {
+        font-size: 0.75rem;
     }
     
     .loading-text {
@@ -471,32 +657,98 @@ section {
     }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 400px) {
     .hero-section {
-        padding: 15px;
+        padding: 15px 20px;
         gap: 20px;
-        background-position: center top;
-        background-attachment: scroll;
+    }
+    
+    .hero-left, .hero-right {
+        padding: 10px;
     }
     
     .hero-title {
-        font-size: clamp(2rem, 6vw, 3rem);
+        font-size: clamp(2rem, 5vw, 3rem);
+        margin-bottom: 8px;
     }
     
     .hero-description {
         font-size: 12px;
+        margin-bottom: 12px;
     }
     
     .hero-subtitle {
         font-size: 11px;
+        margin-top: 8px;
+    }
+    
+    .hero-right .metrics-grid {
+        gap: 6px;
+    }
+    
+    .hero-right .metric-card {
+        padding: 6px 10px;
+        margin-bottom: 6px;
     }
     
     .hero-right .metric-value {
         font-size: 1.8rem;
+        margin-bottom: -12px;
     }
     
     .hero-right .metric-label {
         font-size: 0.8rem;
+        margin-bottom: -4px;
+    }
+    
+    .hero-right .metric-sub {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .hero-section {
+        padding: 12px 15px;
+        gap: 15px;
+        background-attachment: scroll;
+    }
+    
+    .hero-left, .hero-right {
+        padding: 8px;
+    }
+    
+    .hero-title {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        margin-bottom: 6px;
+    }
+    
+    .hero-description {
+        font-size: 11px;
+        margin-bottom: 10px;
+    }
+    
+    .hero-subtitle {
+        font-size: 10px;
+        margin-top: 6px;
+    }
+    
+    .hero-right .metrics-grid {
+        gap: 4px;
+    }
+    
+    .hero-right .metric-card {
+        padding: 5px 8px;
+        margin-bottom: 4px;
+    }
+    
+    .hero-right .metric-value {
+        font-size: 1.5rem;
+        margin-bottom: -10px;
+    }
+    
+    .hero-right .metric-label {
+        font-size: 0.7rem;
+        margin-bottom: -3px;
     }
     
     .hero-right .metric-sub {
