@@ -1,6 +1,7 @@
 let currentSection = 0;
 const sections = [];
 let isAnimating = false;
+let animationFrames = {};
 
 let firebaseConfig = {
     apiKey: "AIzaSyAQJSrNF_ry6GybCvDO6hfeRU7vaITUMWc",
@@ -29,6 +30,62 @@ function safeWriteToFirebase(data) {
     });
 }
 
+function animateCounter(element, start, end, duration, suffix = '') {
+    if (animationFrames[element.id]) {
+        cancelAnimationFrame(animationFrames[element.id]);
+    }
+    
+    const startTime = performance.now();
+    const startValue = parseFloat(start) || 0;
+    const endValue = parseFloat(end) || 0;
+    const difference = endValue - startValue;
+    
+    function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        const currentValue = startValue + (difference * easeOutQuart);
+        
+        if (suffix.includes('TB')) {
+            element.innerText = currentValue.toFixed(2) + suffix;
+        } else if (suffix.includes('Gbps')) {
+            element.innerText = currentValue.toFixed(2) + suffix;
+        } else {
+            element.innerText = Math.floor(currentValue).toString();
+        }
+        
+        if (progress < 1) {
+            animationFrames[element.id] = requestAnimationFrame(update);
+        } else {
+            delete animationFrames[element.id];
+        }
+    }
+    
+    animationFrames[element.id] = requestAnimationFrame(update);
+}
+
+function updateProgressBars(stats) {
+    const tunnelsProgress = document.getElementById('tunnels-progress');
+    const dataProgress = document.getElementById('data-progress');
+    const speedProgress = document.getElementById('speed-progress');
+    
+    if (tunnelsProgress) {
+        const tunnelsPercent = Math.min((stats.tunnels / 1000) * 100, 100);
+        tunnelsProgress.style.width = tunnelsPercent + '%';
+    }
+    
+    if (dataProgress) {
+        const dataPercent = Math.min((stats.totalGB / 256000) * 100, 100);
+        dataProgress.style.width = dataPercent + '%';
+    }
+    
+    if (speedProgress) {
+        const speedPercent = Math.min((stats.currentSpeed / 5) * 100, 100);
+        speedProgress.style.width = speedPercent + '%';
+    }
+}
+
 function renderUI() {
     const totalEl = document.getElementById('total-data');
     const speedEl = document.getElementById('current-speed');
@@ -37,15 +94,25 @@ function renderUI() {
 
     if (totalEl) {
         const val = Number(stats.totalGB) || 0;
-        totalEl.innerText = val >= 1024 ? (val / 1024).toFixed(2) + " TB" : val.toFixed(2) + " GB";
+        const displayVal = val >= 1024 ? (val / 1024) : val;
+        const suffix = val >= 1024 ? ' TB' : ' GB';
+        const currentText = totalEl.innerText;
+        const currentVal = parseFloat(currentText) || 0;
+        animateCounter(totalEl, currentVal, displayVal, 1000, suffix);
     }
 
     if (speedEl) {
-        speedEl.innerText = (Number(stats.currentSpeed) || 0).toFixed(2) + " Gbps";
+        const val = Number(stats.currentSpeed) || 0;
+        const currentText = speedEl.innerText;
+        const currentVal = parseFloat(currentText) || 0;
+        animateCounter(speedEl, currentVal, val, 1000, ' Gbps');
     }
 
     if (tunnelsEl) {
-        tunnelsEl.innerText = Math.floor(Number(stats.tunnels) || 0);
+        const val = Math.floor(Number(stats.tunnels) || 0);
+        const currentText = tunnelsEl.innerText;
+        const currentVal = parseFloat(currentText) || 0;
+        animateCounter(tunnelsEl, currentVal, val, 1000);
     }
 
     if (uplinkEl) {
@@ -54,6 +121,8 @@ function renderUI() {
         if (capacityPercent > 99.9) capacityPercent = 99.9;
         uplinkEl.innerText = `Uplink: ${capacityPercent.toFixed(1)}% capacity`;
     }
+    
+    updateProgressBars(stats);
 }
 
 function updateClock() {
@@ -183,4 +252,3 @@ function startApp() {
 }
 
 window.onload = runLoader;
-
