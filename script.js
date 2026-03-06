@@ -1,3 +1,7 @@
+let currentSection = 0;
+const sections = [];
+let isAnimating = false;
+
 let firebaseConfig = {
     apiKey: "AIzaSyAQJSrNF_ry6GybCvDO6hfeRU7vaITUMWc",
     authDomain: "mosychcloud.firebaseapp.com",
@@ -10,96 +14,23 @@ let firebaseConfig = {
 
 let db = null;
 let statsRef = null;
-let packetRef = null;
 let stats = { totalGB: 0, tunnels: 0, currentSpeed: 0 };
 let firebaseInitialized = false;
 
-updateClock();
-
-function validatePacket(packet) {
-    if (!packet || typeof packet !== 'object') return false;
+function useDemoData() {
+    stats = {
+        totalGB: Math.random() * 5000 + 1000,
+        tunnels: Math.floor(Math.random() * 50) + 10,
+        currentSpeed: Math.random() * 3 + 0.5
+    };
+    renderUI();
     
-    const ipRegex = /^(\d{1,3}\.){1,3}(\d{1,3}|x)(\.(\d{1,3}|x))*$/;
-    if (!packet.ip || typeof packet.ip !== 'string') return false;
-    if (!ipRegex.test(packet.ip)) return false;
-    
-    const validProtocols = [
-        'TCP', 'UDP', 'HTTP', 'HTTPS', 'FTP', 
-        'TLS_1.2', 'TLS_1.3', 'SSL_3.0', 'SSH', 'SMTP', 'DNS', 'DHCP',
-        'CHACHA20', 'AES_256', 'BLOWFISH', 'RC4', 'WPA2', 'WPA3', 'DTLS',
-        'QUIC', 'WIREGUARD', 'X25519', 'AES-GCM'
-    ];
-    
-    if (!packet.proto || typeof packet.proto !== 'string') return false;
-    const upperProto = packet.proto.toUpperCase();
-    if (!validProtocols.includes(upperProto)) packet.proto = upperProto;
-    else packet.proto = upperProto;
-    
-    if (!packet.payload || typeof packet.payload !== 'string') return false;
-    packet.payload = String(packet.payload).replace(/[<>]/g, '').substring(0, 20);
-    
-    return true;
-}
-
-function initializeFirebase() {
-    if (firebaseInitialized) return;
-    
-    return new Promise((resolve, reject) => {
-        try {
-            if (!firebase.apps.length) {
-                firebase.initializeApp(firebaseConfig);
-            }
-            
-            db = firebase.database();
-            statsRef = db.ref('mosych_stats');
-            packetRef = db.ref('last_packet');
-            
-            let dataLoaded = false;
-            let packetsLoaded = false;
-            
-            statsRef.on('value', (snapshot) => {
-                const data = snapshot.val();
-                if (data) {
-                    stats = {
-                        totalGB: Math.max(0, Number(data.totalGB) || 0),
-                        tunnels: Math.max(0, Math.floor(Number(data.tunnels) || 0)),
-                        currentSpeed: Math.max(0, Number(data.currentSpeed) || 0)
-                    };
-                    renderUI();
-                    dataLoaded = true;
-                    
-                    if (dataLoaded && packetsLoaded) {
-                        firebaseInitialized = true;
-                        resolve();
-                    }
-                }
-            });
-            
-            packetRef.on('value', (snapshot) => {
-                const packet = snapshot.val();
-                if (packet && validatePacket(packet)) {
-                    drawRow(packet);
-                    packetsLoaded = true;
-                    
-                    if (dataLoaded && packetsLoaded) {
-                        firebaseInitialized = true;
-                        resolve();
-                    }
-                }
-            });
-            
-            setTimeout(() => {
-                if (!firebaseInitialized) {
-                    firebaseInitialized = true;
-                    resolve();
-                }
-            }, 5000);
-            
-        } catch (error) {
-            console.error('Error initializing Firebase:', error);
-            reject(error);
-        }
-    });
+    setInterval(() => {
+        stats.currentSpeed = Math.max(0.1, stats.currentSpeed + (Math.random() - 0.5) * 0.5);
+        stats.totalGB += Math.random() * 0.01;
+        stats.tunnels = Math.max(1, stats.tunnels + Math.floor(Math.random() - 0.3));
+        renderUI();
+    }, 3000);
 }
 
 function renderUI() {
@@ -110,7 +41,7 @@ function renderUI() {
 
     if (totalEl) {
         const val = Number(stats.totalGB) || 0;
-        totalEl.innerText = val >= 1024 ? (val / 1024).toFixed(4) + " TB" : val.toFixed(2) + " GB";
+        totalEl.innerText = val >= 1024 ? (val / 1024).toFixed(2) + " TB" : val.toFixed(2) + " GB";
     }
     
     if (speedEl) {
@@ -133,47 +64,19 @@ function renderUI() {
 function updateClock() {
     const timeEl = document.getElementById('local-time');
     if (timeEl) {
-        timeEl.innerText = new Date().toLocaleTimeString("ru-RU", {
+        const time = new Date().toLocaleTimeString("ru-RU", {
             timeZone: "Europe/Berlin", 
             hour: '2-digit', 
             minute: '2-digit', 
             second: '2-digit'
-        }) + " (CET)";
-    }
-}
-
-function drawRow(packet) {
-    const body = document.getElementById('traffic-body');
-    if (!body || !packet) return;
-    
-    const row = document.createElement('tr');
-    row.innerHTML = `
-        <td>${packet.ip || '0.0.0.0'}</td>
-        <td><span class="protocol-badge">${packet.proto || '---'}</span></td>
-        <td>${packet.payload || '---'}</td>
-        <td class="status-encrypted">ENCRYPTED</td>
-    `;
-    
-    row.style.opacity = '0';
-    row.style.transform = 'translateY(-20px)';
-    row.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    
-    body.prepend(row);
-    
-    setTimeout(() => {
-        row.style.opacity = '1';
-        row.style.transform = 'translateY(0)';
-    }, 50);
-    
-    if (body.rows.length > 12) {
-        const lastRow = body.rows[body.rows.length - 1];
-        lastRow.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-        lastRow.style.opacity = '0';
-        lastRow.style.transform = 'translateY(20px)';
+        });
+        timeEl.innerText = time;
         
-        setTimeout(() => {
-            body.deleteRow(body.rows.length - 1);
-        }, 300);
+        const words = timeEl.innerText.split(' ');
+        const capitalizedWords = words.map(word => 
+            word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        );
+        timeEl.innerText = capitalizedWords.join(' ');
     }
 }
 
@@ -200,127 +103,96 @@ async function runLoader() {
     }
     
     if (loadingScreen) {
-        loadingScreen.classList.add('fade-out');
-        setTimeout(() => {
-            loadingScreen.style.display = 'none';
-            startApp();
-        }, 800);
+        loadingScreen.style.display = 'none';
+        startApp();
     }
 }
 
 function startApp() {
     updateClock();
     setInterval(updateClock, 1000);
+    initializeSections();
     setupScrollAnimations();
-    setupSmoothScroll();
-    setupSmoothScrolling();
-    setupThemeToggle();
+    document.getElementById('loading-screen').style.display = 'none';
+    document.querySelector('.hero-section').classList.add('active');
 }
 
-function setupThemeToggle() {
-    const themeToggle = document.getElementById('theme-toggle');
+function initializeFirebase() {
+    if (firebaseInitialized) return;
     
-    const isCurrentlyDark = document.body.classList.contains('dark-theme');
-    themeToggle.textContent = isCurrentlyDark ? 'LIGHT' : 'DARK';
-    
-    themeToggle.addEventListener('click', () => {
-        const isDark = document.body.classList.toggle('dark-theme');
-        
-        themeToggle.textContent = isDark ? 'LIGHT' : 'DARK';
-        
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    });
-}
-
-function setupScrollAnimations() {
-    const sections = document.querySelectorAll('section');
-    
-    sections.forEach((section, index) => {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(50px)';
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                } else {
-                    const rect = entry.target.getBoundingClientRect();
-                    if (rect.bottom < 0) {
-                        entry.target.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                        entry.target.style.opacity = '0';
-                        entry.target.style.transform = 'translateY(-30px)';
+    return new Promise((resolve, reject) => {
+        try {
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+            
+            db = firebase.database();
+            statsRef = db.ref('mosych_stats');
+            
+            let dataLoaded = false;
+            
+            statsRef.on('value', (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    stats = {
+                        totalGB: Math.max(0, Number(data.totalGB) || 0),
+                        tunnels: Math.max(0, Math.floor(Number(data.tunnels) || 0)),
+                        currentSpeed: Math.max(0, Number(data.currentSpeed) || 0)
+                    };
+                    renderUI();
+                    dataLoaded = true;
+                    
+                    if (dataLoaded) {
+                        firebaseInitialized = true;
+                        resolve();
                     }
                 }
             });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px'
-        });
-        
-        observer.observe(section);
-    });
-    
-    const metricCards = document.querySelectorAll('.metric-card');
-    metricCards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        
-        const cardObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }, index * 100);
+            
+            setTimeout(() => {
+                if (!firebaseInitialized) {
+                    firebaseInitialized = true;
+                    resolve();
                 }
-            });
-        }, {
-            threshold: 0.1
-        });
-        
-        cardObserver.observe(card);
+            }, 5000);
+            
+        } catch (error) {
+            console.error('Error initializing Firebase:', error);
+            reject(error);
+        }
     });
 }
 
-function setupSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+function initializeSections() {
+    const sectionElements = document.querySelectorAll('section');
+    sections.push(...sectionElements);
+    
+    if (sections.length > 0) {
+        sections[0].classList.add('active');
+        currentSection = 0;
+        
+        sections.forEach(section => {
+            const bgImage = window.getComputedStyle(section).backgroundImage;
+            if (bgImage && bgImage !== 'none' && bgImage !== 'url("none")') {
+                const img = new Image();
+                img.onload = () => {
+                };
+                img.onerror = () => {
+                    console.warn('Background image failed to load for section:', section.id);
+                };
+                img.src = bgImage.slice(5, -2);
             }
         });
-    });
+    }
+    
+    window.removeEventListener('wheel', setupSectionNavigation);
+    window.removeEventListener('keydown', setupSectionNavigation);
 }
 
-function setupSmoothScrolling() {
-    document.documentElement.style.scrollBehavior = 'smooth';
-    
-    if ('scrollBehavior' in document.documentElement.style) {
-        document.body.style.scrollBehavior = 'smooth';
-    }
-    
-    document.body.style.webkitOverflowScrolling = 'touch';
-    
-    let ticking = false;
-    
-    function updateScrollAnimation() {
-        ticking = false;
-    }
-    
-    window.addEventListener('scroll', () => {
-        if (!ticking) {
-            window.requestAnimationFrame(updateScrollAnimation);
-            ticking = true;
-        }
-    }, { passive: true });
+function setupScrollAnimations() {
 }
+
+updateClock();
+useDemoData();
 
 window.onload = runLoader;
