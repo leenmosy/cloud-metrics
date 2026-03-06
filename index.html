@@ -1,24 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Mosych Cloud</title>
-    <meta name="description" content="Real-time cloud infrastructure monitoring from Frankfurt Data Center">
-    <meta name="keywords" content="cloud monitoring, frankfurt data center, network traffic">
+    <meta name="description" content="Real-time cloud infrastructure monitoring from Frankfurt Data Center. Encrypted connections, zero downtime, global reach.">
+    <meta name="keywords" content="cloud monitoring, frankfurt data center, network traffic, cloud infrastructure, mosych cloud">
     <meta name="author" content="Mosych Cloud">
     <meta name="robots" content="index, follow">
     
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Mosych Cloud">
-    <meta property="og:description" content="Real-time cloud infrastructure monitoring">
+    <meta property="og:title" content="Mosych Cloud - Real-time Cloud Infrastructure Monitoring">
+    <meta property="og:description" content="Real-time cloud infrastructure monitoring from Frankfurt Data Center">
     <meta property="og:url" content="https://mosych.cloud/">
+    <meta property="og:image" content="https://mosych.cloud/img/background.png">
+    <meta property="og:image:alt" content="Mosych Cloud - cloud infrastructure monitoring">
     
-    <link rel="icon" type="image/png" href="img/favicon.png">
-    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mosych Cloud - Real-time Cloud Infrastructure Monitoring">
+    <meta name="twitter:description" content="Real-time cloud infrastructure monitoring from Frankfurt Data Center">
+    <meta name="twitter:image" content="https://mosych.cloud/img/background.png">
+    
+    <meta name="theme-color" content="#3B525E">
+    <meta name="msapplication-TileColor" content="#3B525E">
+    <meta name="application-name" content="Mosych Cloud">
+    <meta name="apple-mobile-web-app-title" content="Mosych Cloud">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    
+    <link rel="preconnect" href="https://www.gstatic.com">
+    <link rel="preconnect" href="https://mosychcloud-default-rtdb.europe-west1.firebasedatabase.app">
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
     
     <link rel="stylesheet" href="style.css">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Mosych Cloud",
+        "url": "https://mosych.cloud",
+        "description": "Real-time cloud infrastructure monitoring from Frankfurt Data Center",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Frankfurt",
+            "addressCountry": "Germany"
+        },
+        "sameAs": [
+            "https://github.com/mosych"
+        ]
+    }
+    </script>
     
     <script>
         (function() {
@@ -30,100 +67,61 @@
                 }
             };
         })();
-        
-        (function() {
-            const savedTheme = localStorage.getItem('theme');
-            
-            if (savedTheme === 'dark') {
-                document.documentElement.classList.add('dark-theme');
-                document.documentElement.setAttribute('data-theme', 'dark');
-                document.addEventListener('DOMContentLoaded', function() {
-                    document.body.classList.add('dark-theme');
-                });
-            }
-        })();
     </script>
 </head>
 <body>
 
-    <div id="loading-screen" class="loading-screen">
+    <div id="loading-screen" class="loading-screen" role="status" aria-live="polite">
         <div class="loading-container">
-            <div class="loading-bar">
+            <div class="loading-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
                 <div id="loading-progress" class="loading-progress"></div>
             </div>
-            <div class="loading-text">Initializing</div>
+            <div class="loading-text" aria-label="Application loading">Initializing</div>
         </div>
     </div>
 
-    <nav class="nav-menu">
-        <div class="nav-links">
-            <a href="#home">HOME</a>
-            <a href="#metrics">METRICS</a>
-            <a href="#traffic">TRAFFIC</a>
-        </div>
-    </nav>
-
-    <button id="theme-toggle" class="theme-toggle">DARK</button>
-
-    <section id="home" class="hero-section">
-        <h1 class="hero-title">
-            <span class="hero-title-text">Mosych Cloud</span><span class="accent-dot"></span>
-        </h1>
-        <p class="hero-subtitle">Frankfurt Data Center | <span id="local-time">Loading...</span></p>
-        <div class="scroll-indicator">
-            <div class="scroll-dot"></div>
-        </div>
-    </section>
-
-    <section id="metrics" class="metrics-section">
-        <div class="metrics-container">
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <div id="total-data" class="metric-value">0.00 TB</div>
-                    <div class="metric-label">Total Data Processed</div>
-                    <div class="metric-sub">● Storage cluster: Optimal</div>
-                </div>
-                <div class="metric-card">
-                    <div id="current-speed" class="metric-value">0.00 Gbps</div>
-                    <div class="metric-label">Current Throughput</div>
-                    <div id="uplink-val" class="metric-sub">↑ Uplink: 98.2% capacity</div>
-                </div>
-                <div class="metric-card">
-                    <div id="tunnels" class="metric-value">0</div>
-                    <div class="metric-label">Active Encrypted Tunnels</div>
-                    <div class="metric-sub">● All systems nominal</div>
+    <div class="horizontal-container">
+        <section id="home" class="hero-section" aria-labelledby="hero-title">
+            <div class="hero-left">
+                <div class="hero-content-left">
+                    <div class="hero-center">
+                        <h1 id="hero-title" class="hero-title">
+                            <span class="hero-title-text">Mosych<br>Cloud</span>
+                        </h1>
+                        <div class="hero-description">
+                            Cloud infrastructure. German security.<br>
+                            Global reach. Real-time monitoring.<br>
+                            Encrypted connections. Zero downtime.
+                        </div>
+                    <p class="hero-subtitle">
+                        <span aria-label="Frankfurt Data Center">Frankfurt Data Center</span> | 
+                        <span id="local-time" aria-live="time">Loading...</span> 
+                        <span class="timezone" aria-label="Central European Time">(CET)</span>
+                    </p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section id="traffic" class="traffic-section">
-        <div class="traffic-header">
-            <h2 class="traffic-title">Real-Time Traffic</h2>
-            <div class="traffic-live">
-                <span class="live-dot"></span>
-                <span>LIVE FEED</span>
+            <div class="hero-right">
+                <div class="metrics-grid" role="region" aria-label="Performance metrics">
+                    <div class="metric-card">
+                        <div id="tunnels" class="metric-value" aria-label="Active encrypted tunnels">0</div>
+                        <div class="metric-label">Active Encrypted Tunnels</div>
+                        <div class="metric-sub" aria-label="System status">● All systems nominal</div>
+                    </div>
+                    <div class="metric-card">
+                        <div id="total-data" class="metric-value" aria-label="Total data processed">0.00 TB</div>
+                        <div class="metric-label">Total Data Processed</div>
+                        <div class="metric-sub" aria-label="Storage cluster status">● Storage cluster: Optimal</div>
+                    </div>
+                    <div class="metric-card">
+                        <div id="current-speed" class="metric-value" aria-label="Current throughput">0.00 Gbps</div>
+                        <div class="metric-label">Current Throughput</div>
+                        <div id="uplink-val" class="metric-sub" aria-label="Uplink capacity usage">↑ Uplink: 98.2% capacity</div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <table class="traffic-table">
-            <thead>
-                <tr>
-                    <th>IP</th>
-                    <th>Protocol</th>
-                    <th>Payload ID</th>
-                    <th>Enc Status</th>
-                </tr>
-            </thead>
-            <tbody id="traffic-body">
-            </tbody>
-        </table>
-    </section>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <p class="footer-text">Mosych Cloud</p>
-        </div>
-    </footer>
+        </section>
+    </div>
 
     <script defer src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
