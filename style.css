@@ -416,8 +416,6 @@ section {
         padding: 40px 80px;
         gap: 60px;
         background-attachment: scroll;
-        min-height: auto;
-        height: auto;
     }
     
     .hero-left, .hero-right {
@@ -538,7 +536,6 @@ section {
         background-attachment: scroll;
         padding: 20px;
         gap: 25px;
-        height: auto;
     }
     
     .hero-left, .hero-right {
