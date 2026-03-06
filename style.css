@@ -354,7 +354,6 @@ body.dark-theme .scroll-dot {
     background: #fff;
 }
 
-/* ===== NAVIGATION ===== */
 .nav-menu {
     position: fixed;
     top: 0;
@@ -524,13 +523,11 @@ body.dark-theme .scroll-dot {
     color: #4ade80;
 }
 
-/* Force green for encrypted status in dark theme */
 [data-theme="dark"] .status-encrypted,
 body.dark-theme .status-encrypted {
     color: #4ade80 !important;
 }
 
-/* ===== NAVIGATION ===== */
 .nav-menu {
     position: fixed;
     top: 0;
@@ -621,7 +618,6 @@ body.dark-theme .status-encrypted {
     }
 }
 
-/* ===== ANIMATIONS ===== */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -665,7 +661,6 @@ body.dark-theme .status-encrypted {
     }
 }
 
-/* Плавные переходы для секций */
 section {
     transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
                 transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
@@ -676,7 +671,6 @@ section {
                 transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Улучшенная производительность скролла */
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 80px;
@@ -692,7 +686,6 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
     .nav-menu {
         position: static;
@@ -807,7 +800,6 @@ body {
     }
 }
 
-/* ===== SMOOTH SCROLL SECTIONS ===== */
 .section {
     min-height: 100vh;
     display: flex;
@@ -821,4 +813,5 @@ body {
 
 .fade-in {
     animation: fadeInUp 1s ease both;
+
 }
