@@ -38,7 +38,6 @@ body {
     transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* оставил, возможно ранее был другой цвет — не удалял */
 *::selection {
     background-color: #3B525E;
     color: #ffffff;
@@ -50,7 +49,6 @@ body {
 }
 
 section {
-    /* changed from 100vw to 100% to avoid horizontal scroll on mobile */
     width: 100%;
     height: 100vh;
     position: relative;
@@ -67,7 +65,6 @@ section {
 .hero-section {
     position: relative;
     width: 100%;
-    /* добавлен fallback для dvh */
     height: 100dvh;
     min-height: 100dvh;
     min-height: 100vh;
@@ -103,7 +100,6 @@ section {
     text-align: center;
 }
 
-/* Исправленные clamp() — сложение обёрнуто в calc() для корректного парсинга */
 .hero-title {
     font-size: clamp(7.2rem, calc(14.4vw + 1.2rem), 12rem);
     font-weight: 350;
@@ -193,7 +189,6 @@ section {
     animation: appleReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;
 }
 
-/* Исправленные размеры metric-value — calc внутри clamp */
 .hero-right .metric-value {
     font-size: clamp(2.4rem, calc(4.8vw + 1.2rem), 7.5rem);
     font-weight: 300;
@@ -215,7 +210,6 @@ section {
     text-transform: lowercase;
 }
 
-/* Остальной CSS оставляем без изменений */
 .loading-screen {
     position: fixed;
     top: 0;
