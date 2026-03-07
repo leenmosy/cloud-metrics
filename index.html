@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <title>Mosych Cloud</title>
     <meta name="description" content="Real-time cloud infrastructure monitoring from Frankfurt Data Center. Encrypted connections, zero downtime, global reach.">
@@ -24,10 +22,15 @@
     <meta name="twitter:description" content="Real-time cloud infrastructure monitoring from Frankfurt Data Center">
     <meta name="twitter:image" content="https://mosych.cloud/img/background.png">
     
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Mosych Cloud">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Mosych Cloud">
+    
     <meta name="theme-color" content="#CBDCEC">
+    <meta name="msapplication-TileColor" content="#CBDCEC">
     <meta name="msapplication-navbutton-color" content="#CBDCEC">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#CBDCEC">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="status-bar-style" content="#CBDCEC">
     <meta name="browser-status-bar-style" content="#CBDCEC">
     
@@ -40,35 +43,6 @@
     
     <link rel="stylesheet" href="style.css">
 
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Mosych Cloud",
-        "url": "https://mosych.cloud",
-        "description": "Real-time cloud infrastructure monitoring from Frankfurt Data Center",
-        "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Frankfurt",
-            "addressCountry": "Germany"
-        },
-        "sameAs": [
-            "https://github.com/mosych"
-        ]
-    }
-    </script>
-    
-    <script>
-        (function() {
-            const originalLog = console.log;
-            console.log = function(...args) {
-                const message = args.join(' ').toLowerCase();
-                if (message.includes('error') || message.includes('exception') || message.includes('fail')) {
-                    originalLog.apply(console, args);
-                }
-            };
-        })();
-    </script>
 </head>
 <body>
     <div class="full-bg">
