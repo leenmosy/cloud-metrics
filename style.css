@@ -798,3 +798,10 @@ section {
     }
 
 }
+
+@supports (-webkit-touch-callout: none) {
+    .hero-section {
+        height: -webkit-fill-available;
+        min-height: 100vh;
+    }
+}
