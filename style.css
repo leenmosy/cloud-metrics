@@ -322,7 +322,6 @@ section {
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        overflow: hidden;
     }
 
     .hero-left {
@@ -1008,6 +1007,7 @@ section {
         white-space: nowrap;
     }
 }
+
 
 
 
