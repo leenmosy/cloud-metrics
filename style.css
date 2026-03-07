@@ -26,28 +26,24 @@ html, body {
 
 body {
     font-family: 'Coolvetica', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background-image: url('img/background.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
     color: #3B525E;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     transition: background 0.3s ease, color 0.3s ease;
-    background-image: url('img/background.png');
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
 }
 
-.hero-section {
-    position: relative;
-    width: 100%;
-    height: calc(100vh + env(safe-area-inset-top) + env(safe-area-inset-bottom));
-    display: flex;
-    background-image: url('img/background.png');
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
+.full-bg {
+  position: fixed;
+  inset: 0; 
+  background: url('img/background.png') center/cover no-repeat;
+  z-index: -1;
 }
 
 .horizontal-container {
@@ -1033,6 +1029,7 @@ section {
         white-space: nowrap;
     }
 }
+
 
 
 
