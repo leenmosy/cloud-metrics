@@ -310,6 +310,7 @@ section {
     .hero-section {
         position: relative;
         width: 100%;
+        min-height: 100dvh; 
         height: 100dvh;
         padding-left: 20px;
         padding-right: 20px;
