@@ -40,10 +40,12 @@ body {
 }
 
 .full-bg {
-  position: fixed;
-  inset: 0; 
-  background: url('img/background.png') center/cover no-repeat;
-  z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: url('img/background.png') center/cover no-repeat;
+    z-index: -1;
 }
 
 .horizontal-container {
@@ -1029,6 +1031,7 @@ section {
         white-space: nowrap;
     }
 }
+
 
 
 
