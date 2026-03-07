@@ -308,7 +308,7 @@ section {
 /* Мобильные устройства (≤414px) */
 @media (max-width: 414px) {
     .hero-section {
-        position: relative;
+        position: fixed;
         width: 100%;
         min-height: 100dvh; 
         height: 100dvh;
@@ -320,14 +320,12 @@ section {
         padding-bottom: calc(40px + env(safe-area-inset-bottom));
         grid-template-columns: 1fr;
         grid-template-rows: auto auto;
-        gap: 30px;
         background-image: url('img/background.png');
-        background-size: 150% 150%;
+        background-size: 100% 100%;
         background-position: center center;
         background-repeat: no-repeat;
         background-attachment: scroll;
-        overflow: hidden;
-        align-content: flex-start;
+        align-content: center;
         }
     }
  
@@ -799,6 +797,7 @@ section {
         min-height: 100vh;
     }
 }
+
 
 
 
