@@ -323,8 +323,10 @@ section {
         gap: 30px;
         background-image: url('img/background.png');
         background-size: cover;
-        background-position: center;
+        background-size: 100% 100%;
+        background-position: center center;
         background-repeat: no-repeat;
+        background-attachment: scroll;
         overflow: hidden;
         align-content: flex-start;
     }
@@ -798,4 +800,5 @@ section {
         min-height: 100vh;
     }
 }
+
 
