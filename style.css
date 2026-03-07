@@ -328,9 +328,9 @@ section {
         background-attachment: scroll;
         overflow: hidden;
         align-content: flex-start;
+        }
     }
-}
-
+ 
     .hero-content-left {
         grid-row: 1;
         display: flex;
@@ -437,7 +437,6 @@ section {
         position: relative;
         flex-shrink: 0;
     }
-}
 
 /* Планшеты (415-1024px) */
 @media (min-width: 415px) and (max-width: 1024px) {
@@ -800,6 +799,7 @@ section {
         min-height: 100vh;
     }
 }
+
 
 
 
