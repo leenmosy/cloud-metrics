@@ -12,11 +12,10 @@
     box-sizing: border-box;
 }
 
-::selection {
-    background: #000000;
+*::selection {
+    background-color: #3B525E;
     color: #ffffff;
 }
-
 ::-moz-selection {
     background: #000000;
     color: #ffffff;
@@ -36,11 +35,6 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     transition: background 0.3s ease, color 0.3s ease;
-}
-
-*::selection {
-    background-color: #3B525E;
-    color: #ffffff;
 }
 
 .horizontal-container {
@@ -66,14 +60,10 @@ section {
     position: relative;
     width: 100%;
     height: 100dvh;
-    min-height: 100dvh;
-    min-height: 100vh;
-    padding-top: calc(60px + env(safe-area-inset-top));
-    padding-bottom: calc(60px + env(safe-area-inset-bottom));
+    padding-left: 250px;
+    padding-right: 250px;
     display: grid;
     grid-template-columns: 50% 50%;
-    align-items: center;
-    gap: 0;
     background-image: url('img/background.png');
     background-size: cover;
     background-position: center;
@@ -82,7 +72,7 @@ section {
 }
 
 .hero-left {
-    padding: 72px;
+    padding: 0;
     display: flex;
     height: 100%;
     opacity: 0;
@@ -97,18 +87,23 @@ section {
     flex-direction: column;
     height: 100%;
     width: 100%;
-    text-align: center;
+    text-align: left;
+    justify-content: center;
+    max-width: 800px;
 }
 
 .hero-title {
     font-size: clamp(7.2rem, calc(14.4vw + 1.2rem), 12rem);
-    font-weight: 350;
+    font-weight: 500;
     margin-bottom: 24px;
     line-height: 0.8;
-    text-align: center;
+    text-align: left;
     opacity: 0;
     transform: translateY(-30px);
     animation: appleReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
 }
 
 .hero-description {
@@ -116,7 +111,7 @@ section {
     color: #708693;
     line-height: 1.2;
     max-width: 750px;
-    margin: 0 auto 30px auto;
+    margin: 0 0 30px 0;
     opacity: 0;
     transform: translateY(-30px);
     animation: appleReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
@@ -129,15 +124,24 @@ section {
     cursor: default;
 }
 
+.mosych-italic {
+    font-style: italic;
+    color: #708693;
+}
+
+.cloud-italic {
+    font-style: italic;
+}
+
 .hero-subtitle {
     font-size: clamp(14.4px, calc(1.8vw + 12px), 20.4px);
     color: #879DA8;
     font-weight: 300;
-    margin-top: auto;
     opacity: 0;
     transform: translateY(-30px);
     animation: appleReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;
     cursor: default;
+    text-align: left;
 }
 
 .hero-subtitle-right {
@@ -150,10 +154,8 @@ section {
 }
 
 .hero-right {
-    padding: 72px;
+    padding: 0;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     height: 100%;
     opacity: 0;
     transform: translateY(-30px);
@@ -162,96 +164,34 @@ section {
     z-index: 2;
 }
 
-.hero-right .metrics-grid {
+.hero-content-right {
     display: flex;
     flex-direction: column;
-    max-width: 562.5px;
-    margin: auto;
-}
-
-.hero-right .metric-card {
-    padding: 9.6px 14.4px;
-    border-radius: 7.5px;
-    text-align: center;
-    margin-top: -36px;
-    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    opacity: 0;
-    transform: translateY(-30px);
-    position: relative;
-    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    text-align: right;
+    justify-content: center;
+    max-width: 800px;
 }
 
 .progress-bar {
-    width: 100%;
+    width: 65%;
     height: 3px;
     background: rgba(59, 82, 94, 0.1);
     border-radius: 1.5px;
     margin-top: 6px;
     overflow: hidden;
     position: relative;
+    flex-shrink: 0;
+    margin-left: auto;
 }
 
 .progress-fill {
     height: 100%;
     background: linear-gradient(90deg, #3B525E, #708693);
     border-radius: 1.5px;
-    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: width 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     position: relative;
-}
-
-.progress-fill::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
-
-.chart-section {
-    padding: 60px 72px;
-    background-image: url('img/background.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.chart-container {
-    width: 100%;
-    max-width: 1200px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 40px;
-    box-shadow: 0 20px 40px rgba(59, 82, 94, 0.1);
-    border: 1px solid rgba(59, 82, 94, 0.1);
-}
-
-.chart-title {
-    font-size: clamp(1.5rem, 2.5vw, 2rem);
-    color: #3B525E;
-    text-align: center;
-    margin-bottom: 30px;
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-#throughputChart {
-    width: 100% !important;
-    height: 400px !important;
 }
 
 .hero-right .metric-card:nth-child(1) {
@@ -353,7 +293,7 @@ section {
 }
 
 .loading-text {
-    margin-top: 30px;
+    margin-top: 15px;
     font-size: 10px;
     letter-spacing: 3px;
     text-transform: uppercase;
@@ -365,474 +305,493 @@ section {
     animation: fadeInOut 1.5s ease-in-out infinite;
 }
 
-.hero-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: inherit;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index: 1;
-}
-
-.hero-left, .hero-right { position: relative; z-index: 2; }
-
-@media (max-width: 1600px) {
+/* Мобильные устройства (≤414px) */
+@media (max-width: 414px) {
     .hero-section {
-        padding: clamp(40px, 3.6vw, 50px) clamp(100px, 7.2vw, 120px);
-        gap: 0;
-        min-height: 100dvh;
-        min-height: 100vh;
-    }
-    
-    .hero-left, .hero-right {
-        padding: clamp(40px, 3.6vw, 50px);
-        min-height: auto;
-    }
-    
-    .hero-title {
-        font-size: clamp(6rem, 9.6vw, 8.4rem);
-        margin-bottom: clamp(12px, 1.8vw, 18px);
-    }
-    
-    .hero-description {
-        font-size: clamp(21.6px, 3vw, 26.4px);
-        margin-bottom: clamp(18px, 2.4vw, 24px);
-    }
-    
-    .hero-right .metric-value {
-        font-size: clamp(4.8rem, 7.2vw, 6.6rem);
-        margin-bottom: clamp(-36px, -4.8vw, -42px);
-    }
-    
-    .hero-right .metric-label {
-        font-size: clamp(1.2rem, 1.8vw, 1.56rem);
-        margin-bottom: clamp(-9.6px, -1.2vw, -12px);
-    }
-    
-    .hero-right .metric-sub {
-        font-size: clamp(0.96rem, 1.44vw, 1.2rem);
-    }
-    
-    .hero-right .metric-card {
-        padding: clamp(12px, 1.8vw, 14.4px) clamp(18px, 2.4vw, 21.6px);
-        margin-bottom: clamp(18px, 2.4vw, 24px);
-    }
-    
-    .chart-section {
-        padding: clamp(40px, 3.6vw, 50px);
-    }
-    
-    .chart-container {
-        padding: clamp(30px, 2.4vw, 40px);
-    }
-    
-    #throughputChart {
-        height: clamp(300px, 20vw, 400px) !important;
-    }
-}
-
-@media (max-width: 1400px) {
-    .hero-section {
-        padding: clamp(35px, 3.6vw, 45px) clamp(80px, 6vw, 100px);
-        gap: 0;
-        min-height: 100dvh;
-        min-height: 100vh;
-    }
-    
-    .hero-left, .hero-right {
-        padding: clamp(35px, 3.6vw, 45px);
-        min-height: auto;
-    }
-    
-    .hero-title {
-        font-size: clamp(5.4rem, 8.4vw, 7.2rem);
-        margin-bottom: clamp(9.6px, 1.8vw, 14.4px);
-    }
-    
-    .hero-description {
-        font-size: clamp(19.2px, 3vw, 24px);
-        margin-bottom: clamp(14.4px, 2.4vw, 21.6px);
-    }
-    
-    .hero-right .metric-value {
-        font-size: clamp(4.2rem, 6vw, 5.4rem);
-        margin-bottom: clamp(-30px, -4.2vw, -36px);
-    }
-    
-    .hero-right .metric-label {
-        font-size: clamp(1.08rem, 1.68vw, 1.44rem);
-        margin-bottom: clamp(-7.2px, -1.2vw, -9.6px);
-    }
-    
-    .hero-right .metric-sub {
-        font-size: clamp(0.84rem, 1.32vw, 1.08rem);
-    }
-    
-    .hero-right .metric-card {
-        padding: clamp(9.6px, 1.8vw, 14.4px) clamp(14.4px, 2.4vw, 21.6px);
-        margin-bottom: clamp(14.4px, 2.4vw, 21.6px);
-    }
-}
-
-@media (max-width: 1200px) {
-    .hero-section {
-        padding: clamp(25px, 4.8vw, 35px) clamp(50px, 6vw, 60px);
-        gap: 0;
-        min-height: 100dvh;
-        min-height: 100vh;
-    }
-    
-    .hero-left, .hero-right {
-        padding: clamp(20px, 3.6vw, 25px);
-    }
-    
-    .hero-title {
-        font-size: clamp(3.6rem, 6.6vw, 4.8rem);
-        margin-bottom: clamp(9.6px, 1.8vw, 14.4px);
-    }
-    
-    .hero-description {
-        font-size: clamp(14.4px, 3vw, 19.2px);
-        margin-bottom: clamp(14.4px, 2.4vw, 24px);
-    }
-    
-    .hero-subtitle {
-        font-size: clamp(12px, 1.8vw, 15.6px);
-        margin-top: clamp(14.4px, 2.4vw, 18px);
-    }
-    
-    .hero-right .metric-value {
-        font-size: clamp(3rem, 5.4vw, 4.2rem);
-        margin-bottom: clamp(-21.6px, -3.6vw, -26.4px);
-    }
-    
-    .hero-right .metric-label {
-        font-size: clamp(0.96rem, 1.68vw, 1.32rem);
-        margin-bottom: clamp(-6px, -1.2vw, -7.2px);
-    }
-    
-    .hero-right .metric-sub {
-        font-size: clamp(0.72rem, 1.32vw, 0.96rem);
-    }
-    
-    .hero-right .metric-card {
-        padding: clamp(12px, 1.8vw, 18px) clamp(16.8px, 2.4vw, 24px);
-        margin-bottom: clamp(9.6px, 1.8vw, 14.4px);
-    }
-}
-@media (max-width: 1024px) {
-    .hero-section {
-        padding: clamp(25px, 4.8vw, 35px) clamp(50px, 6vw, 60px);
-        gap: 0;
-        min-height: 100dvh;
-        min-height: 100vh;
-    }
-    
-    .hero-left, .hero-right {
-        padding: clamp(20px, 3.6vw, 25px);
-    }
-    
-    .hero-title {
-        font-size: clamp(3.6rem, 6.6vw, 4.8rem);
-        margin-bottom: clamp(9.6px, 1.8vw, 14.4px);
-    }
-    
-    .hero-description {
-        font-size: clamp(14.4px, 3vw, 19.2px);
-        margin-bottom: clamp(14.4px, 2.4vw, 24px);
-    }
-    
-    .hero-subtitle {
-        font-size: clamp(12px, 1.8vw, 15.6px);
-        margin-top: clamp(14.4px, 2.4vw, 18px);
-    }
-    
-    .hero-right .metric-value {
-        font-size: clamp(3rem, 5.4vw, 4.2rem);
-        margin-bottom: clamp(-21.6px, -3.6vw, -26.4px);
-    }
-    
-    .hero-right .metric-label {
-        font-size: clamp(0.96rem, 1.68vw, 1.32rem);
-        margin-bottom: clamp(-6px, -1.2vw, -7.2px);
-    }
-    
-    .hero-right .metric-sub {
-        font-size: clamp(0.72rem, 1.32vw, 0.96rem);
-    }
-    
-    .hero-right .metric-card {
-        padding: clamp(12px, 1.8vw, 18px) clamp(16.8px, 2.4vw, 24px);
-        margin-bottom: clamp(9.6px, 1.8vw, 14.4px);
-    }
-}
-
-@media (max-width: 768px), (max-height: 600px) {
-    .hero-section {
+        position: relative;
+        width: 100%;
+        height: 100dvh;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 40px;
+        padding-bottom: 40px;
         grid-template-columns: 1fr;
-        min-height: 100dvh;
-        min-height: 100vh;
-        padding: clamp(15px, 3.6vw, 20px) clamp(15px, 4.8vw, 20px);
-        gap: 0;
-        background-attachment: scroll;
+        grid-template-rows: auto auto;
+        gap: 30px;
+        background-image: url('img/background.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        overflow: hidden;
+        align-content: flex-start;
     }
-
-    .hero-left, .hero-right {
-        padding: clamp(12px, 3.6vw, 15px);
+ 
+    .hero-content-left {
+        grid-row: 1;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+        text-align: center;
+        justify-content: flex-start;
         max-width: 100%;
+    }
+    
+    .hero-title {
+        font-size: clamp(4.8rem, calc(12vw + 2rem), 6.4rem);
+        font-weight: 500;
+        margin-bottom: 16px;
+        line-height: 0.9;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(-30px);
+        animation: appleReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .hero-description {
+        font-size: clamp(0.875rem, calc(2vw + 0.5rem), 1rem);
+        color: #708693;
+        line-height: 1.4;
+        max-width: 100%;
+        margin: 0 0 20px 0;
+        opacity: 0;
+        transform: translateY(-30px);
+        animation: appleReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
+        cursor: default;
+    }
+        
+    .hero-subtitle {
+        font-size: clamp(0.75rem, calc(1.5vw + 0.4rem), 0.875rem);
+        color: #879DA8;
+        font-weight: 300;
+        opacity: 0;
+        transform: translateY(-30px);
+        animation: appleReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;
+        cursor: default;
         text-align: center;
     }
-    
-    .hero-title {
-        font-size: clamp(3rem, 7.2vw, 4.2rem);
-        margin-bottom: clamp(7.2px, 1.8vw, 12px);
-    }
-    
-    .hero-description {
-        font-size: clamp(13.2px, 3vw, 16.8px);
-        line-height: 1.4;
-        margin-bottom: clamp(12px, 2.4vw, 18px);
-    }
-    
-    .hero-subtitle {
-        font-size: clamp(10.8px, 1.8vw, 14.4px);
-        margin-top: clamp(9.6px, 2.4vw, 14.4px);
-    }
-    
-    .hero-right .metrics-grid {
-        gap: clamp(9.6px, 2.4vw, 14.4px);
+ 
+    .hero-content-right {
+        grid-row: 2;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+        text-align: center;
+        justify-content: flex-start;
         max-width: 100%;
     }
     
-    .hero-right .metric-card {
-        padding: clamp(9.6px, 2.4vw, 14.4px) clamp(14.4px, 3vw, 21.6px);
-        margin-bottom: clamp(7.2px, 1.8vw, 12px);
+    /* .hero-right .metrics-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
     }
     
+    .hero-right .metric-card {
+        font-size: clamp(1.05rem, calc(1.35vw + 1.05rem), 1.875rem);
+        color: #879DA8;
+        text-transform: lowercase;
+        cursor: default;
+    } */
+    
     .hero-right .metric-value {
-        font-size: clamp(2.4rem, 6vw, 3.6rem);
-        margin-bottom: clamp(-14.4px, -3vw, -21.6px);
+        font-size: clamp(3.6rem, calc(8vw + 1.6rem), 4.8rem);
+        font-weight: 300;
+        margin-bottom: -24px;
+        text-transform: uppercase;
+        color: #3B525E;
     }
     
     .hero-right .metric-label {
-        font-size: clamp(0.84rem, 1.8vw, 1.2rem);
-        margin-bottom: clamp(-4.8px, -1.2vw, -7.2px);
+        font-size: clamp(0.875rem, calc(2vw + 0.5rem), 1rem);
+        color: #708693;
+        text-transform: lowercase;
+        margin-bottom: -8px;
+        cursor: default;
     }
     
     .hero-right .metric-sub {
-        font-size: clamp(0.6rem, 1.44vw, 0.96rem);
+        font-size: clamp(0.75rem, calc(1.5vw + 0.4rem), 0.875rem);
+        color: #879DA8;
+        text-transform: lowercase;
+        cursor: default;
     }
     
-    .chart-section {
-        padding: clamp(30px, 4.8vw, 40px) clamp(20px, 3.6vw, 30px);
-    }
-    
-    .chart-container {
-        padding: clamp(20px, 3.6vw, 30px);
-        border-radius: 10px;
-    }
-    
-    .chart-title {
-        font-size: clamp(1.2rem, 3vw, 1.5rem);
-        margin-bottom: clamp(20px, 3vw, 25px);
-    }
-    
-    #throughputChart {
-        height: clamp(250px, 30vw, 350px) !important;
-    }
-    
-    .loading-text {
-        font-size: clamp(7.2px, 1.8vw, 9.6px);
-        letter-spacing: clamp(1.2px, 0.36vw, 2.4px);
-    }
-    
-    .loading-bar {
-        width: clamp(96px, 18vw, 120px);
+    .hero-right .progress-bar {
+        width: 50%;
+        height: 2px;
+        background: rgba(59, 82, 94, 0.1);
+        border-radius: 1px;
+        margin: 8px auto 0;
+        overflow: hidden;
+        position: relative;
+        flex-shrink: 0;
     }
 }
 
-@media (max-width: 480px) {
+/* Планшеты (415-1024px) */
+@media (min-width: 415px) and (max-width: 1024px) {
+    /* HERO SECTION */
     .hero-section {
-        min-height: 100dvh;
-        min-height: 100vh;
-        padding: clamp(12px, 3.6vw, 15px) clamp(10px, 3.6vw, 15px);
-        gap: 0;
-        background-attachment: scroll;
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        grid-template-columns: 50% 50%;
+        gap: 40px;
     }
     
-    .hero-left, .hero-right {
-        padding: clamp(10px, 3.6vw, 12px);
+    /* Левый блок */
+    .hero-content-left {
+        justify-content: center;
+        max-width: 100%;
     }
     
     .hero-title {
-        font-size: clamp(2.4rem, 6.6vw, 3.36rem);
-        margin-bottom: clamp(6px, 1.8vw, 9.6px);
+        font-size: clamp(4.8rem, 10vw, 6.4rem);
+        margin-bottom: 20px;
     }
     
     .hero-description {
-        font-size: clamp(12px, 3vw, 14.4px);
-        line-height: 1.3;
-        margin-bottom: clamp(9.6px, 2.4vw, 14.4px);
+        font-size: clamp(16px, 3vw, 18px);
+        max-width: 100%;
     }
     
     .hero-subtitle {
-        font-size: clamp(9.6px, 1.8vw, 12px);
-        margin-top: clamp(7.2px, 2.4vw, 9.6px);
+        font-size: clamp(12px, 2.5vw, 14px);
+        margin-top: auto;
     }
     
-    .hero-right .metrics-grid {
-        gap: clamp(7.2px, 2.4vw, 9.6px);
+    /* Правый блок */
+    .hero-content-right {
+        justify-content: center;
+        max-width: 100%;
     }
     
-    .hero-right .metric-card {
-        padding: clamp(7.2px, 2.4vw, 12px) clamp(9.6px, 3vw, 14.4px);
-        margin-bottom: clamp(4.8px, 1.8vw, 7.2px);
+    .metrics-grid {
+        gap: 20px;
     }
     
-    .hero-right .metric-value {
-        font-size: clamp(1.8rem, 5.4vw, 2.64rem);
-        margin-bottom: clamp(-9.6px, -2.4vw, -14.4px);
+    .metric-card {
+        padding: 14px 18px;
+        margin-top: -20px;
     }
     
-    .hero-right .metric-label {
-        font-size: clamp(0.72rem, 1.8vw, 1.08rem);
-        margin-bottom: clamp(-3.6px, -1.2vw, -4.8px);
+    .metric-value {
+        font-size: clamp(2.4rem, 5vw, 3.2rem);
     }
     
-    .hero-right .metric-sub {
-        font-size: clamp(0.48rem, 1.44vw, 0.84rem);
+    .metric-label {
+        font-size: clamp(11px, 2.5vw, 13px);
     }
     
-    .loading-text {
-        font-size: clamp(6px, 1.8vw, 8.4px);
-        letter-spacing: clamp(0.96px, 0.36vw, 1.8px);
+    .metric-sub {
+        font-size: clamp(10px, 2vw, 12px);
     }
     
-    .loading-bar {
-        width: clamp(72px, 18vw, 96px);
+    .progress-bar {
+        width: 80%;
     }
 }
 
-@media (max-width: 400px) {
+/* Ноутбуки (1025-1535px) */
+@media (min-width: 1025px) and (max-width: 1535px) {
+    /* HERO SECTION */
     .hero-section {
-        padding: clamp(10px, 3.6vw, 12px) clamp(8px, 3.6vw, 12px);
-        gap: 0;
+        padding-left: 80px;
+        padding-right: 80px;
+        padding-top: 60px;
+        padding-bottom: 60px;
+        grid-template-columns: 50% 50%;
+        gap: 50px;
     }
     
-    .hero-left, .hero-right {
-        padding: clamp(8px, 3.6vw, 10px);
+    /* Левый блок */
+    .hero-content-left {
+        justify-content: center;
+        max-width: 90%;
     }
     
     .hero-title {
-        font-size: clamp(1.8rem, 6vw, 2.64rem);
-        margin-bottom: clamp(4.8px, 1.8vw, 7.2px);
+        font-size: clamp(6.4rem, 12vw, 8rem);
+        margin-bottom: 22px;
     }
     
     .hero-description {
-        font-size: clamp(9.6px, 3vw, 12px);
-        margin-bottom: clamp(7.2px, 2.4vw, 9.6px);
+        font-size: clamp(18px, 3.5vw, 22px);
+        max-width: 90%;
     }
     
     .hero-subtitle {
-        font-size: clamp(8.4px, 1.8vw, 9.6px);
-        margin-top: clamp(6px, 2.4vw, 7.2px);
+        font-size: clamp(13px, 2.5vw, 15px);
+        margin-top: auto;
     }
     
-    .hero-right .metrics-grid {
-        gap: clamp(4.8px, 2.4vw, 7.2px);
+    /* Правый блок */
+    .hero-content-right {
+        justify-content: center;
+        max-width: 90%;
     }
     
-    .hero-right .metric-card {
-        padding: clamp(4.8px, 2.4vw, 9.6px) clamp(7.2px, 3vw, 12px);
-        margin-bottom: clamp(3.6px, 1.8vw, 4.8px);
+    .metrics-grid {
+        gap: 24px;
     }
     
-    .hero-right .metric-value {
-        font-size: clamp(1.44rem, 4.8vw, 2.16rem);
-        margin-bottom: clamp(-7.2px, -2.4vw, -9.6px);
+    .metric-card {
+        padding: 16px 20px;
+        margin-top: -28px;
     }
     
-    .hero-right .metric-label {
-        font-size: clamp(0.6rem, 1.8vw, 0.96rem);
-        margin-bottom: clamp(-2.4px, -1.2vw, -3.6px);
+    .metric-value {
+        font-size: clamp(3.2rem, 6vw, 4rem);
     }
     
-    .hero-right .metric-sub {
-        font-size: clamp(0.3rem, 1.44vw, 0.72rem);
+    .metric-label {
+        font-size: clamp(12px, 2.5vw, 14px);
     }
     
-    .loading-text {
-        font-size: clamp(4.8px, 1.8vw, 7.2px);
-        letter-spacing: clamp(0.72px, 0.36vw, 1.2px);
+    .metric-sub {
+        font-size: clamp(11px, 2vw, 13px);
     }
     
-    .loading-bar {
-        width: clamp(60px, 18vw, 72px);
+    .progress-bar {
+        width: 70%;
     }
 }
 
-@media (max-width: 320px) {
+/* Десктопы (1536-2559px) */
+@media (min-width: 1536px) and (max-width: 2559px) {
     .hero-section {
-        padding: clamp(8px, 3.6vw, 10px);
-        gap: 0;
-        background-attachment: scroll;
-        min-height: 100dvh;
-        min-height: 100vh;
+        position: relative;
+        width: 100%;
+        height: 100dvh;
+        padding-left: 250px;
+        padding-right: 250px;
+        display: grid;
+        grid-template-columns: 50% 50%;
+        background-image: url('img/background.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        overflow: hidden;
     }
-    
-    .hero-left, .hero-right {
-        padding: clamp(6px, 3.6vw, 8px);
+
+    .hero-content-left {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        text-align: left;
+        justify-content: center;
+        max-width: 800px;
     }
     
     .hero-title {
-        font-size: clamp(1.44rem, 5.4vw, 2.16rem);
-        margin-bottom: clamp(3.6px, 1.8vw, 6px);
+        font-size: clamp(7.2rem, calc(14.4vw + 1.2rem), 12rem);
+        font-weight: 500;
+        margin-bottom: 24px;
+        line-height: 0.8;
+        text-align: left;
+        opacity: 0;
+        transform: translateY(-30px);
+        animation: appleReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+        display: flex;
+        align-items: flex-end;
+        gap: 20px;
     }
     
     .hero-description {
-        font-size: clamp(8.4px, 3vw, 10.8px);
-        margin-bottom: clamp(6px, 2.4vw, 7.2px);
+        font-size: clamp(16.8px, calc(2.4vw + 14.4px), 30px);
+        color: #708693;
+        line-height: 1.2;
+        max-width: 750px;
+        margin: 0 0 30px 0;
+        opacity: 0;
+        transform: translateY(-30px);
+        animation: appleReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
+        cursor: default;
     }
-    
+        
     .hero-subtitle {
-        font-size: clamp(7.2px, 1.8vw, 8.4px);
-        margin-top: clamp(4.8px, 2.4vw, 6px);
+        font-size: clamp(14.4px, calc(1.8vw + 12px), 20.4px);
+        color: #879DA8;
+        font-weight: 300;
+        opacity: 0;
+        transform: translateY(-30px);
+        animation: appleReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;
+        cursor: default;
+        text-align: left;
+    }
+
+    .hero-content-right {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        text-align: right;
+        justify-content: center;
+        max-width: 800px;
     }
     
-    .hero-right .metrics-grid {
-        gap: clamp(3.6px, 2.4vw, 4.8px);
+    /*.metrics-grid {
+        gap: 28px;
     }
     
-    .hero-right .metric-card {
-        padding: clamp(3.6px, 2.4vw, 7.2px) clamp(6px, 3vw, 9.6px);
-        margin-bottom: clamp(2.4px, 1.8vw, 3.6px);
+    .metric-card {
+        padding: 18px 22px;
+        margin-top: -32px;
+    } */
+    
+    .metric-value {
+        font-size: clamp(2.4rem, calc(4.8vw + 1.2rem), 7.5rem);
+        font-weight: 300;
+        margin-bottom: -48px;
+        text-transform: uppercase;
+        color: #3B525E;
     }
     
     .hero-right .metric-value {
-        font-size: clamp(1.2rem, 4.2vw, 1.8rem);
-        margin-bottom: clamp(-4.8px, -2.4vw, -7.2px);
+        font-size: clamp(2.4rem, calc(4.8vw + 1.2rem), 7.5rem);
+        font-weight: 300;
+        margin-bottom: -48px;
+        text-transform: uppercase;
+        color: #3B525E;
+    }
+
+    .hero-right .metric-sub {
+        font-size: clamp(0.84rem, calc(1.08vw + 0.84rem), 1.5rem);
+        color: #879DA8;
+        text-transform: lowercase;
+        cursor: default;
     }
     
-    .hero-right .metric-label {
-        font-size: clamp(0.48rem, 1.8vw, 0.84rem);
-        margin-bottom: clamp(-1.2px, -1.2vw, -2.4px);
+    .hero-right .progress-bar {
+        width: 65%;
+        height: 3px;
+        background: rgba(59, 82, 94, 0.1);
+        border-radius: 1.5px;
+        margin-top: 6px;
+        overflow: hidden;
+        position: relative;
+        flex-shrink: 0;
+        margin-left: auto;
+    }
+
+}
+
+/* 4K/Ultra (≥2560px) */
+@media (min-width: 2560px) {
+    .hero-section {
+        position: relative;
+        width: 100%;
+        height: 100dvh;
+        padding-left: 400px;
+        padding-right: 400px;
+        display: grid;
+        grid-template-columns: 50% 50%;
+        background-image: url('img/background.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        overflow: hidden;
+    }
+
+    .hero-content-left {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        text-align: left;
+        justify-content: center;
+        max-width: 1000px;
+    }
+    
+    .hero-title {
+        font-size: clamp(9rem, calc(18vw + 1.5rem), 15rem);
+        font-weight: 500;
+        margin-bottom: 24px;
+        line-height: 0.8;
+        text-align: left;
+        opacity: 0;
+        transform: translateY(-30px);
+        animation: appleReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+        display: flex;
+        align-items: flex-end;
+        gap: 20px;
+    }
+    
+    .hero-description {
+        font-size: clamp(21px, calc(3vw + 18px), 37.5px);
+        color: #708693;
+        line-height: 1.2;
+        max-width: 750px;
+        margin: 0 0 30px 0;
+        opacity: 0;
+        transform: translateY(-30px);
+        animation: appleReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
+        cursor: default;
+    }
+        
+    .hero-subtitle {
+        font-size: clamp(18px, calc(2.25vw + 15px), 25.5px);
+        color: #879DA8;
+        font-weight: 300;
+        opacity: 0;
+        transform: translateY(-30px);
+        animation: appleReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;
+        cursor: default;
+        text-align: left;
+    }
+
+    .hero-content-right {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        text-align: right;
+        justify-content: center;
+        max-width: 1000px;
+    }
+    
+    /* .metrics-grid {
+        gap: 28px;
+    }
+    
+    .metric-card {
+        padding: 18px 22px;
+        margin-top: -32px;
+    } */
+    
+    .hero-right .metric-value {
+        font-size: clamp(3rem, calc(6vw + 1.5rem), 9.375rem);
+        font-weight: 300;
+        margin-bottom: -48px;
+        text-transform: uppercase;
+        color: #3B525E;
     }
     
     .hero-right .metric-sub {
-        font-size: clamp(0.3rem, 1.44vw, 0.6rem);
+        font-size: clamp(1.05rem, calc(1.35vw + 1.05rem), 1.875rem);
+        color: #879DA8;
+        text-transform: lowercase;
+        cursor: default;
     }
     
-    .loading-text {
-        font-size: clamp(3.6px, 1.8vw, 6px);
-        letter-spacing: clamp(0.48px, 0.36vw, 0.96px);
+    .hero-right .progress-bar {
+        width: 71%;
+        height: 3px;
+        background: rgba(59, 82, 94, 0.1);
+        border-radius: 1.5px;
+        margin-top: 6px;
+        overflow: hidden;
+        position: relative;
+        flex-shrink: 0;
+        margin-left: auto;
     }
-    
-    .loading-bar {
-        width: clamp(48px, 18vw, 60px);
-    }
+
 }
