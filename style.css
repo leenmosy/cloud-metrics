@@ -301,7 +301,7 @@ button, a, input, textarea, select, [role="button"], [role="link"] {
     height: 100%;
     pointer-events: none;
     z-index: 9998;
-    opacity: 0.9;
+    opacity: 0.5;
     background: radial-gradient(ellipse 1000px 500px at center top, 
         rgba(194, 238, 0, 0.07) 0%, 
         rgba(194, 238, 0, 0.05) 30%, 
@@ -320,7 +320,7 @@ button, a, input, textarea, select, [role="button"], [role="link"] {
     height: 100%;
     pointer-events: none;
     z-index: 9998;
-    opacity: 0.6;
+    opacity: 0.5;
     background: radial-gradient(ellipse 1000px 500px at center bottom, 
         rgba(194, 238, 0, 0.07) 0%, 
         rgba(194, 238, 0, 0.05) 30%, 
@@ -697,5 +697,6 @@ button, a, input, textarea, select, [role="button"], [role="link"] {
     white-space: nowrap;
     text-align: center;
 }
+
 
 
