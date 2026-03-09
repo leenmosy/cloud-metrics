@@ -55,10 +55,7 @@ button, a, input, textarea, select, [role="button"], [role="link"] {
 
 .loading-screen {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
+    inset: 0;
     background: radial-gradient(circle, #181717 0%, #0D0D0D 100%);
     z-index: 10000;
     display: flex;
@@ -702,3 +699,4 @@ button, a, input, textarea, select, [role="button"], [role="link"] {
     white-space: nowrap;
     text-align: center;
 }
+
