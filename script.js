@@ -1,8 +1,3 @@
-let currentSection = 0;
-const sections = [];
-let isAnimating = false;
-let animationFrames = {};
-
 let firebaseConfig = {
     apiKey: "AIzaSyAQJSrNF_ry6GybCvDO6hfeRU7vaITUMWc",
     authDomain: "mosychcloud.firebaseapp.com",
@@ -19,17 +14,7 @@ let stats = { totalGB: 0, tunnels: 0, currentSpeed: 0 };
 let firebaseInitialized = false;
 let isWriting = false;
 
-function safeWriteToFirebase(data) {
-    if (isWriting || !statsRef) return;
-    isWriting = true;
-    statsRef.update(data, (error) => {
-        isWriting = false;
-        if (error) console.error('Firebase write error:', error);
-    });
-}
-
 function animateCounter(element, start, end, duration, suffix = '') {
-    if (animationFrames[element.id]) cancelAnimationFrame(animationFrames[element.id]);
     const startTime = performance.now();
     const startValue = parseFloat(start) || 0;
     const endValue = parseFloat(end) || 0;
@@ -41,20 +26,18 @@ function animateCounter(element, start, end, duration, suffix = '') {
         const easeOutQuart = 1 - Math.pow(1 - progress, 4);
         const currentValue = startValue + (difference * easeOutQuart);
 
-        if (suffix.includes('TB') || suffix.includes('Gbps')) {
+        if (suffix.includes('TB') || suffix.includes('GBPS')) {
             element.innerText = currentValue.toFixed(2) + suffix;
         } else {
             element.innerText = Math.floor(currentValue).toString();
         }
 
         if (progress < 1) {
-            animationFrames[element.id] = requestAnimationFrame(update);
-        } else {
-            delete animationFrames[element.id];
+            requestAnimationFrame(update);
         }
     }
 
-    animationFrames[element.id] = requestAnimationFrame(update);
+    requestAnimationFrame(update);
 }
 
 function updateProgressBars(stats) {
@@ -71,7 +54,6 @@ function renderUI() {
     const totalEl = document.getElementById('total-data');
     const speedEl = document.getElementById('current-speed');
     const tunnelsEl = document.getElementById('tunnels');
-    const uplinkEl = document.getElementById('uplink-val');
 
     if (totalEl) {
         const val = Number(stats.totalGB) || 0;
@@ -80,29 +62,29 @@ function renderUI() {
         animateCounter(totalEl, parseFloat(totalEl.innerText) || 0, displayVal, 1000, suffix);
     }
 
-    if (speedEl) animateCounter(speedEl, parseFloat(speedEl.innerText) || 0, Number(stats.currentSpeed) || 0, 1000, ' Gbps');
+    if (speedEl) animateCounter(speedEl, parseFloat(speedEl.innerText) || 0, Number(stats.currentSpeed) || 0, 1000, ' GBPS');
     if (tunnelsEl) animateCounter(tunnelsEl, parseFloat(tunnelsEl.innerText) || 0, Math.floor(Number(stats.tunnels) || 0), 1000);
 
-    if (uplinkEl) {
-        const speed = Number(stats.currentSpeed) || 0;
-        let capacityPercent = (speed / 5) * 100;
-        if (capacityPercent > 99.9) capacityPercent = 99.9;
-        uplinkEl.innerText = `Uplink: ${capacityPercent.toFixed(1)}% capacity`;
-    }
-
     updateProgressBars(stats);
+    
+    setTimeout(() => {
+        if (speedEl && speedEl.innerText.includes('gbps')) {
+            speedEl.innerText = speedEl.innerText.replace('gbps', 'GBPS');
+        }
+    }, 50);
 }
 
 function updateClock() {
     const timeEl = document.getElementById('local-time');
     if (timeEl) {
-        const time = new Date().toLocaleTimeString("ru-RU", {
+        const time = new Date().toLocaleTimeString("en", {
             timeZone: "Europe/Berlin",
             hour: '2-digit',
             minute: '2-digit',
-            second: '2-digit'
+            second: '2-digit',
+            hour12: false
         });
-        timeEl.innerText = time;
+        timeEl.innerText = `${time} (CET)`;
     }
 }
 
@@ -157,28 +139,16 @@ setInterval(() => {
     if (!firebaseInitialized) syncWithLocalStorage();
 }, 5000);
 
-function initializeSections() {
-    const sectionElements = document.querySelectorAll('section');
-    sections.push(...sectionElements);
-
-    if (sections.length > 0) {
-        sections[0].classList.add('active');
-        currentSection = 0;
-    }
-}
-
-function adjustHeroHeight() {
-    const hero = document.querySelector('.full-bg');
-    if (hero) hero.style.height = window.innerHeight + 'px';
-}
-
 async function runLoader() {
     const loadingScreen = document.getElementById('loading-screen');
     const progressBar = document.getElementById('loading-progress');
     const loadingText = document.querySelector('.loading-text');
+    const mainContainer = document.querySelector('main.container');
+
+    const savedScrollPosition = window.pageYOffset;
 
     if (progressBar && loadingText) {
-        const statusTexts = ['Initializing', 'Loading resources', 'Connecting', 'Loading data', 'Almost ready'];
+        const statusTexts = ['Initializing', 'Loading', 'Connecting'];
         const firebasePromise = initializeFirebase();
 
         for (let i = 0; i <= 100; i += 5) {
@@ -192,7 +162,14 @@ async function runLoader() {
     }
 
     const loadingScreenEl = document.getElementById('loading-screen');
-    if (loadingScreenEl) loadingScreenEl.style.display = 'none';
+    if (loadingScreenEl) {
+        loadingScreenEl.style.opacity = '0';
+        window.scrollTo(0, savedScrollPosition);
+        setTimeout(() => {
+            if (mainContainer) mainContainer.classList.add('loaded');
+            setTimeout(() => { loadingScreenEl.style.display = 'none'; }, 300);
+        }, 200);
+    }
 
     startApp();
 }
@@ -200,25 +177,59 @@ async function runLoader() {
 function startApp() {
     syncWithLocalStorage();
     initializeFirebase()
-        .then(() => console.log('Firebase initialized successfully'))
+        .then(() => {})
         .catch(error => {
             console.error('Firebase initialization failed:', error);
-            alert('Ошибка: данные недоступны без Firebase');
+            alert('Error: Data is unavailable without Firebase');
         });
 
     updateClock();
     setInterval(updateClock, 1000);
-    initializeSections();
 
-    const hero = document.querySelector('.full-bg');
-    if (hero) {
-        hero.classList.add('active');
-        hero.style.height = window.innerHeight + 'px';
-    }
+    animateCloudText();
 }
 
-window.addEventListener('resize', adjustHeroHeight);
-window.addEventListener('load', () => {
-    adjustHeroHeight();
-    runLoader();
+function animateCloudText() {
+    const cloudText = document.querySelector('.cloud');
+    if (!cloudText) return;
+    
+    setTimeout(() => {
+        cloudText.classList.remove('invisible');
+        cloudText.classList.add('typing');
+        
+        const text = cloudText.innerText;
+        cloudText.innerText = '';
+        let index = 0;
+        
+        const typeInterval = setInterval(() => {
+            if (index < text.length) {
+                cloudText.innerText += text[index];
+                index++;
+            } else {
+                clearInterval(typeInterval);
+                cloudText.classList.add('typing-complete');
+            }
+        }, 100);
+    }, 1000);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const metricsLink = document.getElementById('metrics-link');
+    if (metricsLink) {
+        metricsLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            const metricsSection = document.getElementById('metrics');
+            if (metricsSection) metricsSection.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+    
+    const homeLink = document.getElementById('home-link');
+    if (homeLink) {
+        homeLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            const homeSection = document.getElementById('home');
+            if (homeSection) homeSection.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
 });
+window.addEventListener('load', runLoader);
