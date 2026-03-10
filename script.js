@@ -149,6 +149,12 @@ async function runLoader() {
 
     if (progressBar && loadingText) {
         const statusTexts = ['Initializing', 'Loading', 'Connecting'];
+        
+        loadingText.textContent = statusTexts[0];
+        progressBar.style.width = '25%';
+        
+        syncWithLocalStorage();
+        
         const firebasePromise = initializeFirebase();
 
         for (let i = 0; i <= 100; i += 5) {
