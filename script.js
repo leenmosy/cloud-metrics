@@ -39,12 +39,14 @@
     function draw() {
         ctx.clearRect(0, 0, W, H);
 
+        
         for (let i = 0; i < particles.length; i++) {
             const p = particles[i];
             p.x += p.vx;
             p.y += p.vy;
             p.pulse += p.pulseSpeed;
 
+            
             if (p.x < -10) p.x = W + 10;
             if (p.x > W + 10) p.x = -10;
             if (p.y < -10) p.y = H + 10;
@@ -52,6 +54,7 @@
 
             const alpha = p.opacity * (0.7 + 0.3 * Math.sin(p.pulse));
 
+            
             for (let j = i + 1; j < particles.length; j++) {
                 const q = particles[j];
                 const dx = p.x - q.x;
@@ -68,6 +71,7 @@
                 }
             }
 
+            
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
             ctx.fillStyle = `rgba(${p.color},${alpha})`;
@@ -321,6 +325,7 @@ function initCursor() {
         cursor.style.top = mouseY + 'px';
     });
 
+    
     function animateTrail() {
         trailX += (mouseX - trailX) * 0.14;
         trailY += (mouseY - trailY) * 0.14;
@@ -341,6 +346,7 @@ function initCursor() {
         if (trail) trail.style.opacity = '0.5';
     });
 
+    
     const hoverElements = document.querySelectorAll(
         '.cloud, .block-3-logo, .block-4-button-metrics, .block-2-button-home, .btn, .nav-link, .tech-icon, .infra-card, .metric-card, a'
     );
@@ -350,11 +356,13 @@ function initCursor() {
         element.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
     });
 
+    
     document.addEventListener('mousedown', () => cursor.style.transform = 'translate(-50%, -50%) scale(0.7)');
     document.addEventListener('mouseup', () => cursor.style.transform = 'translate(-50%, -50%) scale(1)');
 }
 
 function initScrollReveal() {
+    
     const targets = [
         { selector: '.section-label', delay: 0 },
         { selector: '.hero-title', delay: 1 },
@@ -377,6 +385,7 @@ function initScrollReveal() {
         });
     });
 
+    
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -390,6 +399,7 @@ function initScrollReveal() {
 
 document.addEventListener('DOMContentLoaded', function () {
 
+    
     document.querySelectorAll('a[href^="#"]').forEach(link => {
         link.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
@@ -401,6 +411,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    
     const nav = document.querySelector('.nav');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 60) {
@@ -410,12 +421,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    
     const footer = document.querySelector('.footer');
     window.addEventListener('scroll', () => {
         if (!footer) return;
         const footerTop = footer.getBoundingClientRect().top;
         const winH = window.innerHeight;
-        const fadeStart = 220; // px before footer enters view
+        const fadeStart = 220; 
         if (footerTop < winH + fadeStart) {
             const progress = Math.max(0, Math.min(1, (winH + fadeStart - footerTop) / fadeStart));
             document.body.style.setProperty('--bottom-overlay-opacity', 1 - progress);
@@ -424,6 +436,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    
     window.addEventListener('scroll', () => {
         const glow = document.querySelector('.hero-glow');
         if (glow) {
@@ -432,6 +445,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    
     initCursor();
 });
 
