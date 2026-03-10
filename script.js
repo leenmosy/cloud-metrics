@@ -1,3 +1,90 @@
+(function initBackground() {
+    const canvas = document.getElementById('bg-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    const ACCENT   = '194,238,0';
+    const WHITE    = '255,255,255';
+    const COUNT    = 72;
+    const MAX_DIST = 160;
+    const SPEED    = 0.18;
+
+    let W, H, particles;
+
+    function resize() {
+        W = canvas.width  = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+    }
+
+    function createParticle() {
+        const isAccent = Math.random() < 0.08;
+        return {
+            x: Math.random() * W,
+            y: Math.random() * H,
+            vx: (Math.random() - 0.5) * SPEED,
+            vy: (Math.random() - 0.5) * SPEED,
+            r: Math.random() * 1.2 + 0.4,
+            color: isAccent ? ACCENT : WHITE,
+            opacity: Math.random() * 0.4 + 0.1,
+            pulse: Math.random() * Math.PI * 2,
+            pulseSpeed: 0.008 + Math.random() * 0.012,
+        };
+    }
+
+    function init() {
+        resize();
+        particles = Array.from({ length: COUNT }, createParticle);
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+
+        for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.pulse += p.pulseSpeed;
+
+            if (p.x < -10) p.x = W + 10;
+            if (p.x > W + 10) p.x = -10;
+            if (p.y < -10) p.y = H + 10;
+            if (p.y > H + 10) p.y = -10;
+
+            const alpha = p.opacity * (0.7 + 0.3 * Math.sin(p.pulse));
+
+            for (let j = i + 1; j < particles.length; j++) {
+                const q = particles[j];
+                const dx = p.x - q.x;
+                const dy = p.y - q.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < MAX_DIST) {
+                    const lineAlpha = (1 - dist / MAX_DIST) * 0.07;
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(q.x, q.y);
+                    ctx.strokeStyle = `rgba(${WHITE},${lineAlpha})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                }
+            }
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${p.color},${alpha})`;
+            ctx.fill();
+        }
+
+        requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', () => {
+        resize();
+    });
+
+    init();
+    draw();
+})();
+
 let firebaseConfig = {
     apiKey: "AIzaSyAQJSrNF_ry6GybCvDO6hfeRU7vaITUMWc",
     authDomain: "mosychcloud.firebaseapp.com",
@@ -66,7 +153,7 @@ function renderUI() {
     if (tunnelsEl) animateCounter(tunnelsEl, parseFloat(tunnelsEl.innerText) || 0, Math.floor(Number(stats.tunnels) || 0), 1000);
 
     updateProgressBars(stats);
-    
+
     setTimeout(() => {
         if (speedEl && speedEl.innerText.includes('gbps')) {
             speedEl.innerText = speedEl.innerText.replace('gbps', 'GBPS');
@@ -149,12 +236,12 @@ async function runLoader() {
 
     if (progressBar && loadingText) {
         const statusTexts = ['Initializing', 'Loading', 'Connecting'];
-        
+
         loadingText.textContent = statusTexts[0];
         progressBar.style.width = '25%';
-        
+
         syncWithLocalStorage();
-        
+
         const firebasePromise = initializeFirebase();
 
         for (let i = 0; i <= 100; i += 5) {
@@ -186,27 +273,27 @@ function startApp() {
         .then(() => {})
         .catch(error => {
             console.error('Firebase initialization failed:', error);
-            alert('Error: Data is unavailable without Firebase');
         });
 
     updateClock();
     setInterval(updateClock, 1000);
 
     animateCloudText();
+    initScrollReveal();
 }
 
 function animateCloudText() {
     const cloudText = document.querySelector('.cloud');
     if (!cloudText) return;
-    
+
     setTimeout(() => {
         cloudText.classList.remove('invisible');
         cloudText.classList.add('typing');
-        
-        const text = cloudText.innerText;
+
+        const text = 'scales';
         cloudText.innerText = '';
         let index = 0;
-        
+
         const typeInterval = setInterval(() => {
             if (index < text.length) {
                 cloudText.innerText += text[index];
@@ -219,56 +306,133 @@ function animateCloudText() {
     }, 1000);
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const metricsLink = document.getElementById('metrics-link');
-    if (metricsLink) {
-        metricsLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            const metricsSection = document.getElementById('metrics');
-            if (metricsSection) metricsSection.scrollIntoView({ behavior: 'smooth' });
-        });
-    }
-    
-    const homeLink = document.getElementById('home-link');
-    if (homeLink) {
-        homeLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            const homeSection = document.getElementById('home');
-            if (homeSection) homeSection.scrollIntoView({ behavior: 'smooth' });
-        });
-    }
-    
-    // Custom cursor functionality
+function initCursor() {
     const cursor = document.querySelector('.custom-cursor');
-    if (cursor) {
-        // Move cursor with mouse
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-        
-        // Hide cursor when it leaves the window
-        document.addEventListener('mouseleave', () => {
-            cursor.style.display = 'none';
-        });
-        
-        // Show cursor when it enters the window
-        document.addEventListener('mouseenter', () => {
-            cursor.style.display = 'block';
-        });
-        
-        // Add hover effect to specific elements only
-        const hoverElements = document.querySelectorAll('.cloud.invisible, .block-3-logo, .block-4-button-metrics, .block-2-button-home');
-        
-        hoverElements.forEach(element => {
-            element.addEventListener('mouseenter', () => {
-                cursor.classList.add('hover');
-            });
-            
-            element.addEventListener('mouseleave', () => {
-                cursor.classList.remove('hover');
-            });
-        });
+    const trail = document.querySelector('.cursor-trail');
+    if (!cursor) return;
+
+    let mouseX = 0, mouseY = 0;
+    let trailX = 0, trailY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursor.style.left = mouseX + 'px';
+        cursor.style.top = mouseY + 'px';
+    });
+
+    function animateTrail() {
+        trailX += (mouseX - trailX) * 0.14;
+        trailY += (mouseY - trailY) * 0.14;
+        if (trail) {
+            trail.style.left = trailX + 'px';
+            trail.style.top = trailY + 'px';
+        }
+        requestAnimationFrame(animateTrail);
     }
+    animateTrail();
+
+    document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0';
+        if (trail) trail.style.opacity = '0';
+    });
+    document.addEventListener('mouseenter', () => {
+        cursor.style.opacity = '1';
+        if (trail) trail.style.opacity = '0.5';
+    });
+
+    const hoverElements = document.querySelectorAll(
+        '.cloud, .block-3-logo, .block-4-button-metrics, .block-2-button-home, .btn, .nav-link, .tech-icon, .infra-card, .metric-card, a'
+    );
+
+    hoverElements.forEach(element => {
+        element.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        element.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+
+    document.addEventListener('mousedown', () => cursor.style.transform = 'translate(-50%, -50%) scale(0.7)');
+    document.addEventListener('mouseup', () => cursor.style.transform = 'translate(-50%, -50%) scale(1)');
+}
+
+function initScrollReveal() {
+    const targets = [
+        { selector: '.section-label', delay: 0 },
+        { selector: '.hero-title', delay: 1 },
+        { selector: '.hero-sub', delay: 2 },
+        { selector: '.hero-cta', delay: 3 },
+        { selector: '.section-title', delay: 1 },
+        { selector: '.section-desc', delay: 2 },
+        { selector: '.metric-card', delay: 0 },
+        { selector: '.infra-card', delay: 0 },
+        { selector: '.infra-desc', delay: 2 },
+        { selector: '.tech-stack', delay: 3 },
+    ];
+
+    targets.forEach(({ selector, delay }) => {
+        document.querySelectorAll(selector).forEach((el, i) => {
+            el.classList.add('reveal');
+            if (delay > 0 || i > 0) {
+                el.classList.add(`reveal-delay-${Math.min(delay || i, 4)}`);
+            }
+        });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    const nav = document.querySelector('.nav');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 60) {
+            nav.style.padding = '0.85rem 3rem';
+        } else {
+            nav.style.padding = '1.5rem 3rem';
+        }
+    });
+
+    const footer = document.querySelector('.footer');
+    window.addEventListener('scroll', () => {
+        if (!footer) return;
+        const footerTop = footer.getBoundingClientRect().top;
+        const winH = window.innerHeight;
+        const fadeStart = 220; // px before footer enters view
+        if (footerTop < winH + fadeStart) {
+            const progress = Math.max(0, Math.min(1, (winH + fadeStart - footerTop) / fadeStart));
+            document.body.style.setProperty('--bottom-overlay-opacity', 1 - progress);
+        } else {
+            document.body.style.setProperty('--bottom-overlay-opacity', 1);
+        }
+    });
+
+    window.addEventListener('scroll', () => {
+        const glow = document.querySelector('.hero-glow');
+        if (glow) {
+            const offset = window.scrollY * 0.3;
+            glow.style.transform = `translate(-50%, calc(-50% + ${offset}px))`;
+        }
+    });
+
+    initCursor();
 });
+
 window.addEventListener('load', runLoader);
