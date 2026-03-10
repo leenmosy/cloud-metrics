@@ -237,5 +237,38 @@ document.addEventListener('DOMContentLoaded', function() {
             if (homeSection) homeSection.scrollIntoView({ behavior: 'smooth' });
         });
     }
+    
+    // Custom cursor functionality
+    const cursor = document.querySelector('.custom-cursor');
+    if (cursor) {
+        // Move cursor with mouse
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+        
+        // Hide cursor when it leaves the window
+        document.addEventListener('mouseleave', () => {
+            cursor.style.display = 'none';
+        });
+        
+        // Show cursor when it enters the window
+        document.addEventListener('mouseenter', () => {
+            cursor.style.display = 'block';
+        });
+        
+        // Add hover effect to specific elements only
+        const hoverElements = document.querySelectorAll('.cloud.invisible, .block-3-logo, .block-4-button-metrics, .block-2-button-home');
+        
+        hoverElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+            });
+        });
+    }
 });
 window.addEventListener('load', runLoader);
