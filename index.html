@@ -2,155 +2,287 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mosych Cloud</title>
 
     <meta name="description" content="Real-time cloud infrastructure monitoring from Frankfurt Data Center. Encrypted connections, zero downtime, global reach.">
     <meta name="keywords" content="cloud monitoring, frankfurt data center, network traffic, cloud infrastructure, mosych cloud">
     <meta name="author" content="leenmosy">
     <meta name="robots" content="index, follow">
-
     <meta property="og:type" content="website">
     <meta property="og:title" content="Mosych Cloud - Real-time Cloud Infrastructure Monitoring">
     <meta property="og:description" content="Real-time cloud infrastructure monitoring from Frankfurt Data Center">
     <meta property="og:url" content="https://mosych.cloud/">
     <meta property="og:image" content="https://mosych.cloud/img/background.png">
     <meta property="og:image:alt" content="Mosych Cloud - cloud infrastructure monitoring">
-
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Mosych Cloud">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Mosych Cloud">
-
-    <meta name="theme-color" content="#1E1E1E">
-    <meta name="msapplication-TileColor" content="#1E1E1E">
-    <meta name="msapplication-navbutton-color" content="#1E1E1E">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#1E1E1E">
-    <meta name="status-bar-style" content="#1E1E1E">
-    <meta name="browser-status-bar-style" content="#1E1E1E">
+    <meta name="theme-color" content="#080808">
+    <meta name="msapplication-TileColor" content="#080808">
+    <meta name="msapplication-navbutton-color" content="#080808">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#080808">
+    <meta name="status-bar-style" content="#080808">
+    <meta name="browser-status-bar-style" content="#080808">
 
     <link rel="preconnect" href="https://www.gstatic.com">
     <link rel="preconnect" href="https://mosychcloud-default-rtdb.europe-west1.firebasedatabase.app">
-
     <link rel="icon" type="image/png" href="img/favicon.png">
     <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
 
-    <title>Mosych Cloud</title>
-
     <link rel="stylesheet" href="style.css">
-
-    <script defer src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 </head>
 <body>
-    <div class="noise"></div>
-    <div class="custom-cursor"></div>
 
-    <div id="loading-screen" class="loading-screen">
-        <div class="loading-container">
-            <div class="loading-text">Loading</div>
-            <div class="loading-progress-bar">
-                <div class="loading-progress-fill" id="loading-progress"></div>
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="custom-cursor"></div>
+    <div class="cursor-trail"></div>
+
+    <div id="loading-screen">
+        <div class="loader-inner">
+            <div class="loader-brand">MOSYCH<span>CLOUD</span></div>
+            <div class="loader-bar-wrap">
+                <div class="loader-bar-track">
+                    <div id="loading-progress" class="loader-bar-fill"></div>
+                </div>
+                <span class="loading-text">Initializing</span>
+            </div>
+            <div class="loader-grid">
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
             </div>
         </div>
     </div>
 
-    
+    <nav class="nav">
+        <div class="nav-logo">MOSYCH<span class="accent">CLOUD</span></div>
+        <div class="nav-status">
+            <span class="status-dot"></span>
+            <span class="status-text">ONLINE</span>
+        </div>
+    </nav>
+
     <main class="container">
-    <div class="page-wrapper">
-        <section class="home" id="home">
-            <div class="home-glow"></div>
-            <header class="home-header">
-                <h1 class="home-title">
-                    <span class="mosych">Mosych</span> <br>
-                    <span class="cloud invisible">Cloud</span>
+
+        <section id="home" class="section hero-section">
+            <div class="section-label">
+                <span class="label-bars">
+                    <span></span><span></span><span></span><span></span><span></span><span></span>
+                </span>
+                <span class="label-text">CLOUD INFRASTRUCTURE</span>
+            </div>
+
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="title-line">Enterprise</span>
+                    <span class="title-line muted">storage that</span>
+                    <span class="title-line"><em class="cloud invisible">scales</em></span>
                 </h1>
-            </header>
-            <div class="blocks-wrapper">
-                <div class="block block-1"></div>
-                <div class="block block-2">
-                    <div class="block-2-country">
-                        <div class="block-2-country-text">Germany</div>
+                <p class="hero-sub">High-performance distributed cloud storage built for teams that demand reliability, speed, and zero downtime.</p>
+                <div class="hero-cta">
+                    <a href="#metrics" class="btn btn-primary block-4-button-metrics">
+                        <span>Live Metrics</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                    </a>
+                    <a href="#infrastructure" class="btn btn-ghost block-2-button-home">
+                        <span>Infrastructure</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-bottom">
+                <div class="hero-uptime">
+                    <div class="uptime-stars">
+                        <span>▲</span><span>▲</span><span>▲</span><span>▲</span><span>▲</span>
                     </div>
-                    <div class="block-2-home-description">
-                        <div class="block-2-home-description-text">Cloud Infrastructure <br> Secure Connection</div>
+                    <div class="uptime-label">99.99% Uptime — <strong>Guaranteed SLA</strong></div>
+                    <div class="uptime-sub">TRUSTED BY ENTERPRISES WORLDWIDE</div>
+                </div>
+                <div class="hero-scroll">
+                    <span class="scroll-label">Scroll to explore</span>
+                    <div class="scroll-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
                     </div>
                 </div>
-                <div class="block block-3">
-                    <div class="glow-line-top"></div>
-                    <div class="block-3-logo">
-                        <div class="block-3-logo-svg"></div>
+            </div>
+
+            <div class="hero-glow"></div>
+            <div class="corner-bracket tl"></div>
+            <div class="corner-bracket tr"></div>
+            <div class="corner-bracket bl"></div>
+            <div class="corner-bracket br"></div>
+        </section>
+
+        <section id="metrics" class="section metrics-section">
+            <div class="section-header">
+                <div>
+                    <div class="section-label">
+                        <span class="label-bars">
+                            <span></span><span></span><span></span><span></span><span></span><span></span>
+                        </span>
+                        <span class="label-text">LIVE METRICS</span>
                     </div>
-                    <div class="block-3-sponsor">
-                        <div class="block-3-sponsor-text">Namesilo | GitHub</div>
+                    <h2 class="section-title">Real-time <br>performance</h2>
+                </div>
+                <div class="section-desc">
+                    <p>Live data streamed directly from our distributed infrastructure. Updated in real-time from Firebase.</p>
+                    <div class="live-time">
+                        <span class="live-dot"></span>
+                        <span id="local-time" class="time-text">--:--:-- (CET)</span>
                     </div>
                 </div>
-                <div class="block block-4">
-                    <div class="block-4-city">
-                        <div class="block-4-city-text">Frankfurt am Main</div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card" data-index="001">
+                    <div class="card-header">
+                        <span class="card-num">/001/</span>
+                        <div class="card-bars">
+                            <span></span>
+                        </div>
                     </div>
-                    <div class="block-4-button-metrics" id="metrics-link">
-                        <div class="block-4-button-metrics-text">Metrics ⭣</div>
+                    <div class="card-value" id="total-data">0 GB</div>
+                    <div class="card-label">Total Data Stored</div>
+                    <div class="card-progress">
+                        <div class="progress-track">
+                            <div id="data-progress" class="progress-fill"></div>
+                        </div>
                     </div>
+                    <div class="card-corner tl"></div>
+                    <div class="card-corner br"></div>
                 </div>
-                <div class="block block-5"></div>
+
+                <div class="metric-card" data-index="002">
+                    <div class="card-header">
+                        <span class="card-num">/002/</span>
+                        <div class="card-bars">
+                            <span></span><span></span>
+                        </div>
+                    </div>
+                    <div class="card-value" id="current-speed">0 GBPS</div>
+                    <div class="card-label">Current Throughput</div>
+                    <div class="card-progress">
+                        <div class="progress-track">
+                            <div id="speed-progress" class="progress-fill accent"></div>
+                        </div>
+                    </div>
+                    <div class="card-corner tl"></div>
+                    <div class="card-corner br"></div>
+                </div>
+
+                <div class="metric-card" data-index="003">
+                    <div class="card-header">
+                        <span class="card-num">/003/</span>
+                        <div class="card-bars">
+                            <span></span><span></span><span></span>
+                        </div>
+                    </div>
+                    <div class="card-value" id="tunnels">0</div>
+                    <div class="card-label">Active Tunnels</div>
+                    <div class="card-progress">
+                        <div class="progress-track">
+                            <div id="tunnels-progress" class="progress-fill"></div>
+                        </div>
+                    </div>
+                    <div class="card-corner tl"></div>
+                    <div class="card-corner br"></div>
+                </div>
             </div>
         </section>
 
-        <section class="metrics" id="metrics">
-            <div class="metrics-glow"></div>
-            <header class="metrics-header">
-                <h1 class="metrics-title">METRICS</h1>
-            </header>
-            <div class="blocks-wrapper">
-                <div class="block block-1"></div>
-                <div class="block block-2">
-                    <div class="block-2-button-home" id="home-link">
-                        <div class="block-2-button-home-text">⭡ Home</div>
-                    </div>
-                    <div class="block-2-tunnel">
-                        <div class="block-2-tunnel-value">
-                            <div id="tunnels">0</div>
-                            <div class="block-2-tunnel-text">Active Tunnels</div>
+        <section id="infrastructure" class="section infra-section">
+            <div class="infra-left">
+                <div class="section-label">
+                    <span class="label-bars">
+                        <span></span><span></span><span></span><span></span><span></span><span></span>
+                    </span>
+                    <span class="label-text">INFRASTRUCTURE</span>
+                </div>
+                <h2 class="section-title">How it <br>works</h2>
+                <p class="infra-desc">A resilient, multi-region architecture designed to eliminate bottlenecks and guarantee continuous data availability.</p>
+
+                <div class="tech-stack">
+                    <div class="tech-label">TECH STACK</div>
+                    <div class="tech-icons">
+                        <div class="tech-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
                         </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="tunnels-progress" style="width: 0%"></div>
+                        <div class="tech-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                        </div>
+                        <div class="tech-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                        </div>
+                        <div class="tech-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        </div>
+                        <div class="tech-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
                         </div>
                     </div>
                 </div>
-                <div class="block block-3">
-                    <div class="glow-line-bottom"></div>
-                    <div class="block-3-time">
-                        <div class="block-3-time-text" id="local-time">--:--:--</div>
+            </div>
+
+            <div class="infra-right">
+                <div class="infra-card" data-step="001">
+                    <div class="infra-card-header">
+                        <span class="card-num">/001/</span>
+                        <div class="card-bars"><span></span></div>
                     </div>
-                    <div class="block-3-tb">
-                        <div class="block-3-tb-value">
-                            <div id="total-data">0.00 TB</div>
-                            <div class="block-3-tb-text">Total Data Processed</div>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="data-progress" style="width: 0%"></div>
-                        </div>
-                    </div>
+                    <h3 class="infra-card-title">Ingest</h3>
+                    <p class="infra-card-desc">Data enters through encrypted edge nodes distributed across 12 global regions. Multi-protocol support including S3, NFS, and custom APIs.</p>
+                    <div class="card-corner tl"></div>
+                    <div class="card-corner br"></div>
                 </div>
-                <div class="block block-4">
-                    <div class="block-4-metrics-description">
-                        <div class="block-4-metrics-description-text">Real-Time Monitoring <br> Network Performance Tracking</div>
+
+                <div class="infra-card" data-step="002">
+                    <div class="infra-card-header">
+                        <span class="card-num">/002/</span>
+                        <div class="card-bars"><span></span><span></span></div>
                     </div>
-                    <div class="block-4-gbps">
-                        <div class="block-4-gbps-value">
-                            <div id="current-speed">0.00 GBPS</div>
-                            <div class="block-4-gbps-text">Current Throughput</div>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="speed-progress" style="width: 0%"></div>
-                        </div>
-                    </div>
+                    <h3 class="infra-card-title">Replicate</h3>
+                    <p class="infra-card-desc">Automatic 3x replication across geographically separated data centers. Zero-RPO architecture ensures no data loss under any failure scenario.</p>
+                    <div class="card-corner tl"></div>
+                    <div class="card-corner br"></div>
                 </div>
-                <div class="block block-5"></div>
+
+                <div class="infra-card" data-step="003">
+                    <div class="infra-card-header">
+                        <span class="card-num">/003/</span>
+                        <div class="card-bars"><span></span><span></span><span></span></div>
+                    </div>
+                    <h3 class="infra-card-title">Deliver</h3>
+                    <p class="infra-card-desc">Content served at wire speed via our CDN backbone. Intelligent routing selects the fastest path, reducing latency to sub-10ms globally.</p>
+                    <div class="card-corner tl"></div>
+                    <div class="card-corner br"></div>
+                </div>
             </div>
         </section>
-    </div>
+
     </main>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo">MOSYCH<span class="accent">CLOUD</span></div>
+                    <p class="footer-tagline">Enterprise-grade cloud infrastructure for the modern data stack.</p>
+                </div>
+
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 MosychCloud. All rights reserved.</span>
+                <span class="footer-status"><span class="status-dot"></span> All systems operational</span>
+            </div>
+        </div>
+        <div class="footer-grid-line top"></div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
