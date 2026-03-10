@@ -11,17 +11,15 @@
     box-sizing: border-box;
 }
 
-body {
+html, body {
     margin: 0;
     padding: 0;
-    font-family: 'Coolvetica', sans-serif;
     background-color: #0D0D0D;
-}
-
-html {
+    font-family: 'Coolvetica', sans-serif;
     scroll-behavior: smooth;
     scroll-padding-top: 0;
     scroll-padding-bottom: 0;
+    overflow-x: hidden;
 }
 
 button, a, input, textarea, select, [role="button"], [role="link"] {
@@ -106,7 +104,6 @@ button, a, input, textarea, select, [role="button"], [role="link"] {
     align-items: center;
     justify-content: center;
     position: relative;
-    overflow-x: auto;
 }
 
 .blocks-wrapper {
@@ -292,38 +289,44 @@ button, a, input, textarea, select, [role="button"], [role="link"] {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw; 
+    height: 100vh;
     pointer-events: none;
     z-index: 9998;
-    opacity: 0.9;
-    background: radial-gradient(ellipse 1000px 500px at center top, 
-        rgba(194, 238, 0, 0.07) 0%, 
-        rgba(194, 238, 0, 0.05) 30%, 
-        rgba(194, 238, 0, 0.036) 50%, 
-        rgba(194, 238, 0, 0.024) 70%, 
-        rgba(194, 238, 0, 0.016) 85%, 
-        rgba(194, 238, 0, 0.008) 95%, 
-        transparent 100%);
+    opacity: 1;
+    background: radial-gradient(
+        ellipse 60% 40% at center top, 
+        rgba(194, 238, 0, 0.04) 0%, 
+        rgba(194, 238, 0, 0.03) 20%, 
+        rgba(194, 238, 0, 0.02) 40%, 
+        rgba(194, 238, 0, 0.015) 60%, 
+        rgba(194, 238, 0, 0.01) 80%, 
+        rgba(194, 238, 0, 0.005) 95%, 
+        transparent 100%
+    );
+    filter: blur(2px);
 }
 
-.glow-metrics {
+.metrics-glow {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     pointer-events: none;
     z-index: 9998;
-    opacity: 0.6;
-    background: radial-gradient(ellipse 1000px 500px at center bottom, 
-        rgba(194, 238, 0, 0.07) 0%, 
-        rgba(194, 238, 0, 0.05) 30%, 
-        rgba(194, 238, 0, 0.036) 50%, 
-        rgba(194, 238, 0, 0.024) 70%, 
-        rgba(194, 238, 0, 0.016) 85%, 
-        rgba(194, 238, 0, 0.008) 95%, 
-        transparent 100%);
+    opacity: 1;
+    background: radial-gradient(
+        ellipse 60% 40% at center bottom, 
+        rgba(194, 238, 0, 0.04) 0%, 
+        rgba(194, 238, 0, 0.03) 20%, 
+        rgba(194, 238, 0, 0.02) 40%, 
+        rgba(194, 238, 0, 0.015) 60%, 
+        rgba(194, 238, 0, 0.01) 80%, 
+        rgba(194, 238, 0, 0.005) 95%, 
+        transparent 100%
+    );
+    filter: blur(2px);
 }
 
 .home .block.block-3 {
@@ -691,299 +694,100 @@ button, a, input, textarea, select, [role="button"], [role="link"] {
     text-align: center;
 }
 
-@media (max-width: 767px) {
-    html, body {
-        overflow-x: auto;
+@media (max-width: 1200px) {
+    .page-wrapper {
+        transform: scale(0.8);
+        transform-origin: top center;
         width: 100%;
+        height: 1080px;
     }
 
-    .home, .metrics {
-        width: max-content;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .loading-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        z-index: 1;
-    }
-
-    .loading-text {
-        font-family: 'Coolvetica', sans-serif;
-        font-size: 1rem;
-        color: #C2EE00;
-    }
-
-    .loading-progress-bar {
-        width: 100px;
-        height: 3px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 2px;
-        overflow: hidden;
-        position: relative;
-    }
-
-    .loading-progress-fill {
-        height: 100%;
-        background: linear-gradient(90deg, #C2EE00, #F6FFD0);
-        border-radius: 2px;
-        width: 0%;
-        transition: width 0.3s ease;
-        position: relative;
-    }
-
-    .blocks-wrapper {
-        display: flex;
-        gap: 0;
-        width: max-content;
-        height: 100vh;
+    body, html {
+        height: auto;
+        min-height: 0;
     }
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {
-    html, body {
-        overflow-x: auto;
+@media (max-width: 1000px) {
+    .page-wrapper {
+        transform: scale(0.7);
+        transform-origin: top center;
         width: 100%;
+        height: 1080px;
     }
 
-    .home, .metrics {
-        width: max-content;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .loading-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        z-index: 1;
-    }
-
-    .loading-text {
-        font-family: 'Coolvetica', sans-serif;
-        font-size: 1rem;
-        color: #C2EE00;
-    }
-
-    .loading-progress-bar {
-        width: 100px;
-        height: 3px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 2px;
-        overflow: hidden;
-        position: relative;
-    }
-
-    .loading-progress-fill {
-        height: 100%;
-        background: linear-gradient(90deg, #C2EE00, #F6FFD0);
-        border-radius: 2px;
-        width: 0%;
-        transition: width 0.3s ease;
-        position: relative;
-    }
-
-    .blocks-wrapper {
-        display: flex;
-        gap: 0;
-        width: max-content;
-        height: 100vh;
+    body, html {
+        height: auto;
+        min-height: 0;
     }
 }
 
-@media (min-width: 1024px) and (max-width: 1279px) {
-    html, body {
-        overflow-x: auto;
+@media (max-width: 840px) {
+    .page-wrapper {
+        transform: scale(0.6);
+        transform-origin: top center;
         width: 100%;
+        height: 1080px;
     }
 
-    .home, .metrics {
-        width: max-content;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .loading-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        z-index: 1;
-    }
-
-    .loading-text {
-        font-family: 'Coolvetica', sans-serif;
-        font-size: 1rem;
-        color: #C2EE00;
-    }
-
-    .loading-progress-bar {
-        width: 100px;
-        height: 3px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 2px;
-        overflow: hidden;
-        position: relative;
-    }
-
-    .loading-progress-fill {
-        height: 100%;
-        background: linear-gradient(90deg, #C2EE00, #F6FFD0);
-        border-radius: 2px;
-        width: 0%;
-        transition: width 0.3s ease;
-        position: relative;
-    }
-
-    .blocks-wrapper {
-        display: flex;
-        gap: 0;
-        width: max-content;
-        height: 100vh;
+    body, html {
+        height: auto;
+        min-height: 0;
     }
 }
 
-@media (min-width: 1280px) and (max-width: 1439px) {
-    html, body {
-        overflow-x: auto;
+@media (max-width: 720px) {
+    .page-wrapper {
+        transform: scale(0.5);
+        transform-origin: top center;
         width: 100%;
+        height: 1080px;
     }
 
-    .home, .metrics {
-        width: max-content;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .loading-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        z-index: 1;
-    }
-
-    .loading-text {
-        font-family: 'Coolvetica', sans-serif;
-        font-size: 1rem;
-        color: #C2EE00;
-    }
-
-    .loading-progress-bar {
-        width: 100px;
-        height: 3px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 2px;
-        overflow: hidden;
-        position: relative;
-    }
-
-    .loading-progress-fill {
-        height: 100%;
-        background: linear-gradient(90deg, #C2EE00, #F6FFD0);
-        border-radius: 2px;
-        width: 0%;
-        transition: width 0.3s ease;
-        position: relative;
-    }
-
-    .blocks-wrapper {
-        display: flex;
-        gap: 0;
-        width: max-content;
-        height: 100vh;
+    body, html {
+        height: auto;
+        min-height: 0;
     }
 }
 
-@media (min-width: 1440px) and (max-width: 1919px) {
-    html, body {
-        overflow-x: auto;
+@media (max-width: 600px) {
+    .page-wrapper {
+        transform: scale(0.4);
+        transform-origin: top center;
         width: 100%;
+        height: 1080px;
     }
 
-    .home, .metrics {
-        width: max-content;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .loading-screen.hidden {
-        opacity: 0;
-        visibility: hidden;
-}
-
-    .loading-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        z-index: 1;
-    }
-
-    .loading-text {
-        font-family: 'Coolvetica', sans-serif;
-        font-size: 1rem;
-        color: #C2EE00;
-    }
-
-    .loading-progress-bar {
-        width: 100px;
-        height: 3px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 2px;
-        overflow: hidden;
-        position: relative;
-    }
-
-    .loading-progress-fill {
-        height: 100%;
-        background: linear-gradient(90deg, #C2EE00, #F6FFD0);
-        border-radius: 2px;
-        width: 0%;
-        transition: width 0.3s ease;
-        position: relative;
-    }
-
-    .blocks-wrapper {
-        display: flex;
-        gap: 0;
-        width: max-content;
-        height: 100vh;
+    body, html {
+        height: auto;
+        min-height: 0;
     }
 }
 
-@media (min-width: 1920px) {
-    html, body {
-        overflow-x: auto;
+@media (max-width: 470px) {
+    .page-wrapper {
+        transform: scale(0.3);
+        transform-origin: top center;
         width: 100%;
+        height: 1080px;
     }
 
-    .home, .metrics {
-        width: max-content;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    body, html {
+        height: auto;
+        min-height: 0;
+    }
+}
+
+@media (max-width: 340px) {
+    .page-wrapper {
+        transform: scale(0.2);
+        transform-origin: top center;
+        width: 100%;
+        height: 1080px;
     }
 
-    .blocks-wrapper {
-        display: flex;
-        gap: 0;
-        width: max-content;
-        height: 100vh;
+    body, html {
+        height: auto;
+        min-height: 0;
     }
 }
