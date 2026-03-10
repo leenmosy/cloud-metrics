@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mosych Cloud</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>MosychCloud — Enterprise Cloud Storage</title>
     <meta name="description" content="Real-time cloud infrastructure monitoring from Frankfurt Data Center. Encrypted connections, zero downtime, global reach.">
     <meta name="keywords" content="cloud monitoring, frankfurt data center, network traffic, cloud infrastructure, mosych cloud">
     <meta name="author" content="leenmosy">
@@ -19,30 +18,25 @@
     <meta name="apple-mobile-web-app-title" content="Mosych Cloud">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Mosych Cloud">
-    <meta name="theme-color" content="#080808">
-    <meta name="msapplication-TileColor" content="#080808">
-    <meta name="msapplication-navbutton-color" content="#080808">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#080808">
-    <meta name="status-bar-style" content="#080808">
-    <meta name="browser-status-bar-style" content="#080808">
-
+    <meta name="theme-color" content="#1E1E1E">
+    <meta name="msapplication-TileColor" content="#1E1E1E">
+    <meta name="msapplication-navbutton-color" content="#1E1E1E">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#1E1E1E">
+    <meta name="status-bar-style" content="#1E1E1E">
+    <meta name="browser-status-bar-style" content="#1E1E1E">
     <link rel="preconnect" href="https://www.gstatic.com">
     <link rel="preconnect" href="https://mosychcloud-default-rtdb.europe-west1.firebasedatabase.app">
     <link rel="icon" type="image/png" href="img/favicon.png">
     <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
-
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 </head>
 <body>
-
     <canvas id="bg-canvas"></canvas>
-
     <div class="custom-cursor"></div>
     <div class="cursor-trail"></div>
-
     <div id="loading-screen">
         <div class="loader-inner">
             <div class="loader-brand">MOSYCH<span>CLOUD</span></div>
@@ -58,7 +52,6 @@
             </div>
         </div>
     </div>
-
     <nav class="nav">
         <div class="nav-logo">MOSYCH<span class="accent">CLOUD</span></div>
         <div class="nav-status">
@@ -66,9 +59,7 @@
             <span class="status-text">ONLINE</span>
         </div>
     </nav>
-
     <main class="container">
-
         <section id="home" class="section hero-section">
             <div class="section-label">
                 <span class="label-bars">
@@ -76,7 +67,6 @@
                 </span>
                 <span class="label-text">CLOUD INFRASTRUCTURE</span>
             </div>
-
             <div class="hero-content">
                 <h1 class="hero-title">
                     <span class="title-line">Enterprise</span>
@@ -95,7 +85,6 @@
                     </a>
                 </div>
             </div>
-
             <div class="hero-bottom">
                 <div class="hero-uptime">
                     <div class="uptime-stars">
@@ -111,14 +100,12 @@
                     </div>
                 </div>
             </div>
-
             <div class="hero-glow"></div>
             <div class="corner-bracket tl"></div>
             <div class="corner-bracket tr"></div>
             <div class="corner-bracket bl"></div>
             <div class="corner-bracket br"></div>
         </section>
-
         <section id="metrics" class="section metrics-section">
             <div class="section-header">
                 <div>
@@ -138,7 +125,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="metrics-grid">
                 <div class="metric-card" data-index="001">
                     <div class="card-header">
@@ -157,7 +143,6 @@
                     <div class="card-corner tl"></div>
                     <div class="card-corner br"></div>
                 </div>
-
                 <div class="metric-card" data-index="002">
                     <div class="card-header">
                         <span class="card-num">/002/</span>
@@ -175,7 +160,6 @@
                     <div class="card-corner tl"></div>
                     <div class="card-corner br"></div>
                 </div>
-
                 <div class="metric-card" data-index="003">
                     <div class="card-header">
                         <span class="card-num">/003/</span>
@@ -195,7 +179,6 @@
                 </div>
             </div>
         </section>
-
         <section id="infrastructure" class="section infra-section">
             <div class="infra-left">
                 <div class="section-label">
@@ -206,7 +189,6 @@
                 </div>
                 <h2 class="section-title">How it <br>works</h2>
                 <p class="infra-desc">A resilient, multi-region architecture designed to eliminate bottlenecks and guarantee continuous data availability.</p>
-
                 <div class="tech-stack">
                     <div class="tech-label">TECH STACK</div>
                     <div class="tech-icons">
@@ -228,7 +210,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="infra-right">
                 <div class="infra-card" data-step="001">
                     <div class="infra-card-header">
@@ -240,7 +221,6 @@
                     <div class="card-corner tl"></div>
                     <div class="card-corner br"></div>
                 </div>
-
                 <div class="infra-card" data-step="002">
                     <div class="infra-card-header">
                         <span class="card-num">/002/</span>
@@ -251,7 +231,6 @@
                     <div class="card-corner tl"></div>
                     <div class="card-corner br"></div>
                 </div>
-
                 <div class="infra-card" data-step="003">
                     <div class="infra-card-header">
                         <span class="card-num">/003/</span>
@@ -264,9 +243,7 @@
                 </div>
             </div>
         </section>
-
     </main>
-
     <footer class="footer">
         <div class="footer-inner">
             <div class="footer-top">
@@ -274,7 +251,6 @@
                     <div class="footer-logo">MOSYCH<span class="accent">CLOUD</span></div>
                     <p class="footer-tagline">Enterprise-grade cloud infrastructure for the modern data stack.</p>
                 </div>
-
             </div>
             <div class="footer-bottom">
                 <span>© 2026 MosychCloud. All rights reserved.</span>
@@ -283,7 +259,6 @@
         </div>
         <div class="footer-grid-line top"></div>
     </footer>
-
     <script src="script.js"></script>
 </body>
 </html>
