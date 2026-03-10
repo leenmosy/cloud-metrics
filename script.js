@@ -423,20 +423,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     
     const footer = document.querySelector('.footer');
-    window.addEventListener('scroll', () => {
-        if (!footer) return;
-        const footerTop = footer.getBoundingClientRect().top;
-        const winH = window.innerHeight;
-        const fadeStart = 220; 
-        if (footerTop < winH + fadeStart) {
-            const progress = Math.max(0, Math.min(1, (winH + fadeStart - footerTop) / fadeStart));
-            document.body.style.setProperty('--bottom-overlay-opacity', 1 - progress);
-        } else {
-            document.body.style.setProperty('--bottom-overlay-opacity', 1);
-        }
-    });
 
-    
     window.addEventListener('scroll', () => {
         const glow = document.querySelector('.hero-glow');
         if (glow) {
