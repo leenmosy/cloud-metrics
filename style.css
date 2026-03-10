@@ -9,6 +9,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    cursor: none !important;
 }
 
 html, body {
@@ -47,6 +48,23 @@ button, a, input, textarea, select, [role="button"], [role="link"] {
     z-index: 9999;
     opacity: 0.1;
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+.custom-cursor {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    background-color: #C2EE00;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10001;
+    transform: translate(-50%, -50%);
+    transition: background-color 0.15s ease, transform 0.1s ease-out;
+    will-change: transform;
+}
+
+.custom-cursor.hover {
+    background-color: #181717;
 }
 
 .loading-screen {
