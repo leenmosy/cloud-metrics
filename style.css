@@ -99,12 +99,6 @@ button, a, input, textarea, select, [role="button"], [role="link"] {
     position: relative;
 }
 
-.container {
-    width: 100%;
-    min-height: 100vh;
-    position: relative;
-}
-
 .home, .metrics {
     width: 100%;
     height: 100vh;
@@ -112,6 +106,7 @@ button, a, input, textarea, select, [role="button"], [role="link"] {
     align-items: center;
     justify-content: center;
     position: relative;
+    overflow-x: auto;
 }
 
 .blocks-wrapper {
@@ -293,7 +288,7 @@ button, a, input, textarea, select, [role="button"], [role="link"] {
     width: 0%;
 }
 
-.glow-home {
+.home-glow {
     position: absolute;
     top: 0;
     left: 0;
@@ -301,7 +296,7 @@ button, a, input, textarea, select, [role="button"], [role="link"] {
     height: 100%;
     pointer-events: none;
     z-index: 9998;
-    opacity: 0.5;
+    opacity: 0.9;
     background: radial-gradient(ellipse 1000px 500px at center top, 
         rgba(194, 238, 0, 0.07) 0%, 
         rgba(194, 238, 0, 0.05) 30%, 
@@ -320,7 +315,7 @@ button, a, input, textarea, select, [role="button"], [role="link"] {
     height: 100%;
     pointer-events: none;
     z-index: 9998;
-    opacity: 0.5;
+    opacity: 0.6;
     background: radial-gradient(ellipse 1000px 500px at center bottom, 
         rgba(194, 238, 0, 0.07) 0%, 
         rgba(194, 238, 0, 0.05) 30%, 
@@ -357,7 +352,6 @@ button, a, input, textarea, select, [role="button"], [role="link"] {
     background-color: #C2EE00;
 }
 
-/* home section */
 .block.block-1 {
     background: linear-gradient(to right, #0D0D0D, #181717);
     border: none;
@@ -524,7 +518,6 @@ button, a, input, textarea, select, [role="button"], [role="link"] {
     border: none;
 }
 
-/* metrics section */
 .block-2-button-home {
     position: absolute;
     bottom: 10%;
@@ -698,6 +691,299 @@ button, a, input, textarea, select, [role="button"], [role="link"] {
     text-align: center;
 }
 
+@media (max-width: 767px) {
+    html, body {
+        overflow-x: auto;
+        width: 100%;
+    }
 
+    .home, .metrics {
+        width: max-content;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
+    .loading-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        z-index: 1;
+    }
 
+    .loading-text {
+        font-family: 'Coolvetica', sans-serif;
+        font-size: 1rem;
+        color: #C2EE00;
+    }
+
+    .loading-progress-bar {
+        width: 100px;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .loading-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #C2EE00, #F6FFD0);
+        border-radius: 2px;
+        width: 0%;
+        transition: width 0.3s ease;
+        position: relative;
+    }
+
+    .blocks-wrapper {
+        display: flex;
+        gap: 0;
+        width: max-content;
+        height: 100vh;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    html, body {
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    .home, .metrics {
+        width: max-content;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .loading-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        z-index: 1;
+    }
+
+    .loading-text {
+        font-family: 'Coolvetica', sans-serif;
+        font-size: 1rem;
+        color: #C2EE00;
+    }
+
+    .loading-progress-bar {
+        width: 100px;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .loading-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #C2EE00, #F6FFD0);
+        border-radius: 2px;
+        width: 0%;
+        transition: width 0.3s ease;
+        position: relative;
+    }
+
+    .blocks-wrapper {
+        display: flex;
+        gap: 0;
+        width: max-content;
+        height: 100vh;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+    html, body {
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    .home, .metrics {
+        width: max-content;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .loading-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        z-index: 1;
+    }
+
+    .loading-text {
+        font-family: 'Coolvetica', sans-serif;
+        font-size: 1rem;
+        color: #C2EE00;
+    }
+
+    .loading-progress-bar {
+        width: 100px;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .loading-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #C2EE00, #F6FFD0);
+        border-radius: 2px;
+        width: 0%;
+        transition: width 0.3s ease;
+        position: relative;
+    }
+
+    .blocks-wrapper {
+        display: flex;
+        gap: 0;
+        width: max-content;
+        height: 100vh;
+    }
+}
+
+@media (min-width: 1280px) and (max-width: 1439px) {
+    html, body {
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    .home, .metrics {
+        width: max-content;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .loading-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        z-index: 1;
+    }
+
+    .loading-text {
+        font-family: 'Coolvetica', sans-serif;
+        font-size: 1rem;
+        color: #C2EE00;
+    }
+
+    .loading-progress-bar {
+        width: 100px;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .loading-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #C2EE00, #F6FFD0);
+        border-radius: 2px;
+        width: 0%;
+        transition: width 0.3s ease;
+        position: relative;
+    }
+
+    .blocks-wrapper {
+        display: flex;
+        gap: 0;
+        width: max-content;
+        height: 100vh;
+    }
+}
+
+@media (min-width: 1440px) and (max-width: 1919px) {
+    html, body {
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    .home, .metrics {
+        width: max-content;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .loading-screen.hidden {
+        opacity: 0;
+        visibility: hidden;
+}
+
+    .loading-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        z-index: 1;
+    }
+
+    .loading-text {
+        font-family: 'Coolvetica', sans-serif;
+        font-size: 1rem;
+        color: #C2EE00;
+    }
+
+    .loading-progress-bar {
+        width: 100px;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .loading-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #C2EE00, #F6FFD0);
+        border-radius: 2px;
+        width: 0%;
+        transition: width 0.3s ease;
+        position: relative;
+    }
+
+    .blocks-wrapper {
+        display: flex;
+        gap: 0;
+        width: max-content;
+        height: 100vh;
+    }
+}
+
+@media (min-width: 1920px) {
+    html, body {
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    .home, .metrics {
+        width: max-content;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .blocks-wrapper {
+        display: flex;
+        gap: 0;
+        width: max-content;
+        height: 100vh;
+    }
+}
