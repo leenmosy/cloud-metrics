@@ -35,26 +35,6 @@ body {
     line-height: 1.4;
     letter-spacing: 0.03em;
 }
-body::before {
-    content: '';
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    height: 100px;
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-    background: linear-gradient(to top,
-        rgba(8,8,8,0.95) 0%,
-        rgba(8,8,8,0.6)  40%,
-        rgba(8,8,8,0.0)  100%
-    );
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    -webkit-mask-image: linear-gradient(to top, black 0%, black 40%, transparent 100%);
-    mask-image: linear-gradient(to top, black 0%, black 40%, transparent 100%);
-    pointer-events: none;
-    z-index: 89;
-    opacity: var(--bottom-overlay-opacity, 1);
-    transition: opacity 0.3s ease;
-}
 @media (max-width: 768px) {
     body::before {
         height: 70px;
