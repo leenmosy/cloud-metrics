@@ -1,12 +1,3 @@
-/* ============================================
-   MOSYCH CLOUD — script.js
-   Firebase metrics + animations + interactions
-   ============================================ */
-
-/* ==========================================
-   FIREBASE CONFIG & METRICS (user-provided)
-   ========================================== */
-
 let firebaseConfig = {
     apiKey: "AIzaSyAQJSrNF_ry6GybCvDO6hfeRU7vaITUMWc",
     authDomain: "mosychcloud.firebaseapp.com",
@@ -148,10 +139,6 @@ setInterval(() => {
     if (!firebaseInitialized) syncWithLocalStorage();
 }, 5000);
 
-/* ==========================================
-   LOADING SCREEN
-   ========================================== */
-
 async function runLoader() {
     const loadingScreen = document.getElementById('loading-screen');
     const progressBar = document.getElementById('loading-progress');
@@ -162,7 +149,6 @@ async function runLoader() {
 
     const savedScrollPosition = window.pageYOffset;
 
-    // Init loader canvas — subtle grid + floating particles
     initLoaderCanvas();
 
     function setProgress(pct) {
@@ -203,7 +189,6 @@ async function runLoader() {
     startApp();
 }
 
-/* Loader background canvas */
 function initLoaderCanvas() {
     const canvas = document.getElementById('loader-canvas');
     if (!canvas) return;
@@ -231,14 +216,12 @@ function initLoaderCanvas() {
     function render() {
         ctx.clearRect(0, 0, W, H);
 
-        // Draw subtle radial glow in center
         const grd = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.min(W,H) * 0.5);
         grd.addColorStop(0, 'rgba(232,98,42,0.05)');
         grd.addColorStop(1, 'transparent');
         ctx.fillStyle = grd;
         ctx.fillRect(0, 0, W, H);
 
-        // Particles
         particles.forEach((p, i) => {
             p.life++;
             p.x += p.vx;
@@ -281,10 +264,6 @@ function startApp() {
     initSectionCanvas('infra-canvas', 'infrastructure');
 }
 
-/* ==========================================
-   CLOUD TEXT ANIMATION (footer)
-   ========================================== */
-
 function animateCloudText() {
     const cloudText = document.querySelector('.footer-bg-text.cloud');
     if (!cloudText) return;
@@ -308,10 +287,6 @@ function animateCloudText() {
         }, 120);
     }, 1800);
 }
-
-/* ==========================================
-   HERO CANVAS — animated grid lines
-   ========================================== */
 
 function initHeroCanvas() {
     const canvas = document.getElementById('hero-canvas');
@@ -388,10 +363,6 @@ function initHeroCanvas() {
     render();
 }
 
-/* ==========================================
-   SCROLL ANIMATIONS — Intersection Observer
-   ========================================== */
-
 function initScrollAnimations() {
     const revealEls = document.querySelectorAll('.reveal-up, .reveal-card');
 
@@ -413,17 +384,12 @@ function initScrollAnimations() {
 
     revealEls.forEach(el => observer.observe(el));
 
-    // Trigger hero elements immediately (they're in viewport on load)
     setTimeout(() => {
         document.querySelectorAll('.hero-section .reveal-up').forEach(el => {
             el.classList.add('visible');
         });
     }, 600);
 }
-
-/* ==========================================
-   NAVBAR SCROLL EFFECT
-   ========================================== */
 
 function initNavScroll() {
     const navbar = document.getElementById('navbar');
@@ -437,10 +403,6 @@ function initNavScroll() {
         }
     }, { passive: true });
 }
-
-/* ==========================================
-   FLOATING PARTICLES (metrics section)
-   ========================================== */
 
 function initParticles() {
     const section = document.querySelector('.metrics-section');
@@ -464,7 +426,6 @@ function initParticles() {
         setTimeout(() => p.remove(), 8000);
     }
 
-    // Inject float-up keyframe if not present
     const style = document.createElement('style');
     style.textContent = `
         @keyframes float-up {
@@ -477,13 +438,8 @@ function initParticles() {
     setInterval(createParticle, 600);
 }
 
-/* ==========================================
-   CUSTOM CURSOR
-   ========================================== */
-
 document.addEventListener('DOMContentLoaded', function () {
 
-    /* -- Smooth scrolling nav links -- */
     function smoothScrollTo(targetY, duration = 900) {
         const startY = window.scrollY;
         const diff = targetY - startY;
@@ -513,7 +469,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 const navH = document.querySelector('.navbar')?.offsetHeight || 70;
                 const targetY = target.getBoundingClientRect().top + window.scrollY - navH;
                 smoothScrollTo(targetY, 950);
-                // Close mobile menu if open
                 const mobileMenu = document.getElementById('mobile-menu');
                 const hamburger = document.getElementById('hamburger');
                 if (mobileMenu && mobileMenu.classList.contains('open')) {
@@ -524,7 +479,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    /* -- Hamburger -- */
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobile-menu');
     if (hamburger && mobileMenu) {
@@ -534,10 +488,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    /* -- Uptime bars staggered animation -- */
     const uptimeBars = document.querySelectorAll('.uptime-bar');
 
-    // On mobile hide bars beyond first 15 to avoid overflow
     const isMobile = window.innerWidth <= 480;
     if (isMobile) {
         uptimeBars.forEach((bar, i) => {
@@ -567,7 +519,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const uptimeStrip = document.querySelector('.uptime-strip');
     if (uptimeStrip) uptimeObserver.observe(uptimeStrip);
 
-    /* -- Infra card number highlight on hover -- */
     document.querySelectorAll('.infra-card').forEach(card => {
         card.addEventListener('mouseenter', () => {
             const num = card.querySelector('.infra-card-num');
@@ -582,7 +533,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    /* -- Metric card glow follow cursor -- */
     document.querySelectorAll('.metric-card').forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
@@ -603,11 +553,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 window.addEventListener('load', runLoader);
 
-/* ==========================================
-   SECTION PARTICLE CANVAS
-   Shared system for Metrics & Infrastructure
-   ========================================== */
-
 function initSectionCanvas(canvasId, sectionId) {
     const canvas = document.getElementById(canvasId);
     const section = document.getElementById(sectionId);
@@ -617,7 +562,6 @@ function initSectionCanvas(canvasId, sectionId) {
     let W, H, particles = [], connections = [], raf;
     let isVisible = false;
 
-    /* -- Resize -- */
     function resize() {
         W = section.offsetWidth;
         H = section.offsetHeight;
@@ -625,14 +569,13 @@ function initSectionCanvas(canvasId, sectionId) {
         canvas.height = H;
     }
 
-    /* -- Particle factory -- */
     function makeParticle() {
         const isOrange = Math.random() > 0.55;
         return {
             x: Math.random() * W,
             y: Math.random() * H,
             vx: (Math.random() - 0.5) * 0.1,
-            vy: -0.04 - Math.random() * 0.1,   // slow upward drift
+            vy: -0.04 - Math.random() * 0.1,
             r: 0.8 + Math.random() * 2.2,
             alpha: 0.15 + Math.random() * 0.55,
             alphaDir: (Math.random() > 0.5 ? 1 : -1) * 0.003,
@@ -649,12 +592,11 @@ function initSectionCanvas(canvasId, sectionId) {
         const count = Math.min(Math.floor(W * H / 18000), 35);
         for (let i = 0; i < count; i++) {
             const p = makeParticle();
-            p.life = Math.random() * p.maxLife; // stagger start
+            p.life = Math.random() * p.maxLife;
             particles.push(p);
         }
     }
 
-    /* -- Render loop -- */
     function render() {
         ctx.clearRect(0, 0, W, H);
 
@@ -670,13 +612,11 @@ function initSectionCanvas(canvasId, sectionId) {
             p.alpha += p.alphaDir;
             if (p.alpha > 0.7 || p.alpha < 0.05) p.alphaDir *= -1;
 
-            // Gently wander
             p.vx += (Math.random() - 0.5) * 0.003;
             p.vy += (Math.random() - 0.5) * 0.002 - 0.0003;
             p.vx = Math.max(-0.18, Math.min(0.18, p.vx));
             p.vy = Math.max(-0.2, Math.min(0.05, p.vy));
 
-            // Fade in / fade out at life edges
             let fadeAlpha = p.alpha;
             const fadeLen = 60;
             if (p.life < fadeLen) fadeAlpha *= p.life / fadeLen;
@@ -687,20 +627,15 @@ function initSectionCanvas(canvasId, sectionId) {
             ctx.fillStyle = p.color + fadeAlpha + ')';
             ctx.fill();
 
-
-
-            // Recycle
             if (p.life >= p.maxLife || p.y < -20 || p.x < -20 || p.x > W + 20) {
                 particles[idx] = makeParticle();
                 if (Math.random() > 0.5) particles[idx].y = H + 5;
             }
         });
 
-        // Throttle to ~30fps
         raf = setTimeout(() => requestAnimationFrame(render), 33);
     }
 
-    /* -- Intersection Observer — only animate when visible -- */
     const observer = new IntersectionObserver(entries => {
         isVisible = entries[0].isIntersecting;
     }, { threshold: 0.05 });
