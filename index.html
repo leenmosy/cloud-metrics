@@ -29,13 +29,11 @@
     <link rel="icon" type="image/png" href="img/favicon.png">
     <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
     <link rel="stylesheet" href="style.css">
-    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 </head>
 <body>
 
-    <!-- Loading Screen -->
     <div id="loading-screen">
         <canvas id="loader-canvas"></canvas>
         <div class="loader-inner">
@@ -61,7 +59,6 @@
         </div>
     </div>
 
-    <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-inner">
             <a href="#home" class="nav-logo" id="home-link">
@@ -94,7 +91,6 @@
 
     <main class="container">
 
-        <!-- ===== HERO SECTION ===== -->
         <section id="home" class="hero-section">
             <div class="hero-bg-grid"></div>
             <canvas id="hero-canvas" class="hero-canvas"></canvas>
@@ -134,7 +130,6 @@
 
         </section>
 
-        <!-- ===== METRICS SECTION ===== -->
         <section id="metrics" class="metrics-section">
             <div class="metrics-glow-bg"></div>
             <canvas id="metrics-canvas"></canvas>
@@ -150,7 +145,6 @@
 
             <div class="metrics-grid">
 
-                <!-- Total Data -->
                 <div class="metric-card reveal-card" data-delay="0">
                     <div class="metric-card-inner">
                         <div class="metric-icon">
@@ -165,7 +159,6 @@
                     </div>
                 </div>
 
-                <!-- Active Tunnels -->
                 <div class="metric-card reveal-card" data-delay="100">
                     <div class="metric-card-inner">
                         <div class="metric-icon">
@@ -180,7 +173,6 @@
                     </div>
                 </div>
 
-                <!-- Current Speed -->
                 <div class="metric-card reveal-card" data-delay="200">
                     <div class="metric-card-inner">
                         <div class="metric-icon">
@@ -197,7 +189,6 @@
 
             </div>
 
-            <!-- Uptime bar -->
             <div class="uptime-strip reveal-up">
                 <div class="uptime-label">
                     <span class="uptime-dot"></span>
@@ -240,7 +231,6 @@
 
         </section>
 
-        <!-- ===== INFRASTRUCTURE SECTION ===== -->
         <section id="infrastructure" class="infra-section">
             <div class="infra-glow-bg"></div>
             <canvas id="infra-canvas"></canvas>
@@ -310,7 +300,6 @@
 
             </div>
 
-            <!-- Center feature card -->
             <div class="infra-center-card reveal-up">
                 <div class="infra-center-glow"></div>
                 <div class="infra-center-content">
@@ -344,7 +333,6 @@
 
     </main>
 
-    <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="footer-inner">
             <div class="footer-top">
