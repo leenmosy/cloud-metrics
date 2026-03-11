@@ -221,6 +221,8 @@ a { text-decoration: none; color: inherit; }
     max-width: var(--max-w);
     margin: 0 auto;
     background: rgba(10, 10, 10, 0.82);
+    backdrop-filter: blur(24px) saturate(1.6);
+    -webkit-backdrop-filter: blur(24px) saturate(1.6);
     border: 1px solid rgba(255, 255, 255, 0.10);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     box-shadow:
@@ -236,6 +238,7 @@ a { text-decoration: none; color: inherit; }
     position: relative;
     overflow: hidden;
 }
+
 
 .nav-inner::before {
     content: '';
